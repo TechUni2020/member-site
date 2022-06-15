@@ -134,9 +134,6 @@ Thanks goes to these wonderful people
     </td>
 </table>
 
-
-
-
 <!-- markdownlint-restore -->
 <!-- prettier-ignore-end -->
 
