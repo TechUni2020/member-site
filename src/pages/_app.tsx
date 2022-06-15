@@ -1,22 +1,15 @@
-import { FC } from "react";
-import Head from "next/head";
-import { Layout } from "src/components/layout";
-import { AppPropsWithLayout } from "src/next-type";
-import "src/styles/globals.css";
+import { AppProps } from "next/app";
+import * as React from "react";
 
-const App: FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
-  const MainLayout = Component.useLayout ? Component.useLayout : Layout;
-
+const App = (props: AppProps) => {
   return (
     <>
-      <Head>
-        <title>Tech Uni Members</title>
-      </Head>
-      <MainLayout>
-        <Component {...pageProps} />
-      </MainLayout>
+      <props.Component {...props.pageProps} />
     </>
   );
 };
-
 export default App;
+
+// todo: ログイン済みのユーザー情報があるかどうかをチェックする
+// todo: AuthProviderの配置
+// todo:RecoilRootの配置

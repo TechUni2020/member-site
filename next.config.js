@@ -1,6 +1,8 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  reactStrictMode: true,
-}
-
-module.exports = nextConfig
+module.exports = {
+  rewrites: async () => {
+    return [{ source: "/", destination: "/root" }];
+  },
+  experimental: {
+    nftTracing: true,
+  },
+};
