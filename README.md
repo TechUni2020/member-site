@@ -128,7 +128,7 @@ Thanks goes to these wonderful people
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://twitter.com/shouhi_ide"><img src="https://user-images.githubusercontent.com/63713624/123041698-9f3c9b00-d430-11eb-8faf-e98e27e347db.jpg" width="100px;" alt=""/><br /><sub><b>井手翔陽</b></sub></a><br /><a href="https://github.com/TechUni2020/Tech.Uni_Members/commits?author=shouhi" title="Documentation">📖</a> <a href="#projectManagement-shouhi" title="Project Management">📆</a>
+    <td align="center"><a href="https://twitter.com/cocococo_panda"><img src="https://user-images.githubusercontent.com/83487508/173855971-9b7b2efb-6b7c-4c64-ac1d-a4f64721f756.jpeg" width="100px;" alt="山本新"/><br /><sub><b>山本新</b></sub></a><br /><a href="https://github.com/TechUni2020/Tech.Uni_Members/commits?author=shinyamamoto0422" title="Documentation">📖</a> <a href="#projectManagement-shinyamamoto0422" title="Project Management">📆</a>
     </td>
     <td align="center"><a href="https://twitter.com/nihon_kaizou"><img src="https://avatars.githubusercontent.com/u/66231271?v=4" width="100px;" alt=""/><br /><sub><b>mine2424</b></sub></a><br /><a href="https://github.com/TechUni2020/Tech.Uni_Members/commits?author=mine2424" title="Documentation">📖</a> <a href="#projectEngineer-mine" title="Project Engineer">📆</a>
     </td>
@@ -138,5 +138,3 @@ Thanks goes to these wonderful people
 <!-- prettier-ignore-end -->
 
 <!-- ALL-CONTRIBUTORS-LIST:END -->
-
-This project follows the [all-contributors](https://github.com/all-contributors/all-contributors) specification. Contributions of any kind welcome!
