@@ -1,4 +1,6 @@
-module.exports = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  reactStrictMode: true,
   rewrites: async () => {
     return [{ source: "/", destination: "/root" }];
   },
@@ -6,3 +8,5 @@ module.exports = {
     nftTracing: true,
   },
 };
+
+module.exports = nextConfig;

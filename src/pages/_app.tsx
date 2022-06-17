@@ -1,5 +1,6 @@
 import { AppProps } from "next/app";
 import * as React from "react";
+import "src/styles/globals.css";
 
 const App = (props: AppProps) => {
   return (
