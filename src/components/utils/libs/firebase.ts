@@ -1,14 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
-import {
-  apiKey,
-  appId,
-  authDomain,
-  messagingSenderId,
-  mesurementId,
-  projectId,
-  storageKey,
-} from "../constants/env";
+import { getAuth } from "firebase/auth";
+import "firebase/auth";
+import { apiKey, appId, authDomain, messagingSenderId, mesurementId, projectId, storageKey } from "../constants/env";
 
 const config = {
   apiKey: apiKey,
@@ -26,8 +20,8 @@ function initFirebase() {
     console.log("Firebase has been init successfully");
   }
 }
+
 const app = initializeApp(config);
 const db = getFirestore(app);
-export { initFirebase, app, db };
-
-// Todo: firebase export keyで変数化する
+const auth = getAuth();
+export { initFirebase, db, app, auth };
