@@ -1,16 +1,15 @@
-import { AppProps } from "next/app";
-import * as React from "react";
+import AuthProvider from "src/components/utils/libs/authContext";
+import type { AppProps } from "next/app";
 import "src/styles/globals.css";
 
-const App = (props: AppProps) => {
+const App = ({ Component, pageProps }: AppProps): JSX.Element => {
   return (
-    <>
-      <props.Component {...props.pageProps} />
-    </>
+    <AuthProvider>
+      <Component {...pageProps} />
+    </AuthProvider>
   );
 };
 export default App;
 
 // todo: ログイン済みのユーザー情報があるかどうかをチェックする
-// todo: AuthProviderの配置
-// todo:RecoilRootの配置
+// todo:RecoilRootの配置・Recoil導入

@@ -12,3 +12,5 @@ const Top = () => {
   );
 };
 export default Top;
+
+// AppLoading削除→suspenseでLoadingコンポーネントを配置
