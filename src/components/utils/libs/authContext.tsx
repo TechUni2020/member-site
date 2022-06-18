@@ -49,3 +49,6 @@ const AuthProvider = ({ children }: Props): JSX.Element => {
   return <AuthContext.Provider value={value}>{isLoading ? <p>Loading...</p> : children}</AuthContext.Provider>;
 };
 export default AuthProvider;
+
+// loadingコンポーネント配置
+// Googleログイン・GitHubログイン

@@ -12,5 +12,4 @@ const App = ({ Component, pageProps }: AppProps): JSX.Element => {
 export default App;
 
 // todo: ログイン済みのユーザー情報があるかどうかをチェックする
-// todo: AuthProviderの配置
-// todo:RecoilRootの配置
+// todo:RecoilRootの配置・Recoil導入
