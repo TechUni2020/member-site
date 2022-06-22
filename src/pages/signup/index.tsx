@@ -31,18 +31,18 @@ const signUp: NextPage = () => {
 
   return (
     <div className="h-screen bg-white">
-      <div className="flex w-full flex-wrap">
-        <div className="flex w-full flex-col md:w-1/2">
-          <div className="my-auto flex flex-col justify-center px-8 pt-8 md:justify-start md:px-24 md:pt-0 lg:px-32">
-            <p className="text-center text-3xl">Welcome.</p>
+      <div className="flex flex-wrap w-full">
+        <div className="flex flex-col w-full md:w-1/2">
+          <div className="flex flex-col justify-center px-8 pt-8 my-auto md:justify-start md:px-24 md:pt-0 lg:px-32">
+            <p className="text-3xl text-center">Welcome.</p>
           </div>
         </div>
-        <div className="flex w-full flex-col md:w-1/2">
+        <div className="flex flex-col w-full md:w-1/2">
           {/* 入会方法側・ログイン */}
-          <div className="my-auto flex  flex-col px-8 pt-8 md:px-24 md:pt-0 lg:px-32">
-            <p className="mt-28 text-center text-3xl font-bold">入会方法</p>
+          <div className="flex flex-col  px-8 pt-8 my-auto md:px-24 md:pt-0 lg:px-32">
+            <p className="mt-28 text-3xl font-bold text-center">入会方法</p>
             <div className="flex flex-row">
-              <div className="mt-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-700">
+              <div className="flex justify-center items-center mt-10 w-8 h-8 bg-gray-700 rounded-full">
                 <p className="text-xl text-white">1</p>
               </div>
               <div className="flex-col">
@@ -51,7 +51,7 @@ const signUp: NextPage = () => {
               </div>
             </div>
             <div className=" flex flex-row">
-              <div className="mt-10 flex h-8 w-8 items-center justify-center rounded-full bg-gray-700">
+              <div className="flex justify-center items-center mt-10 w-8 h-8 bg-gray-700 rounded-full">
                 <p className="text-xl text-white">2</p>
               </div>
               <div className="flex-col">
@@ -60,7 +60,7 @@ const signUp: NextPage = () => {
               </div>
             </div>
             <button onClick={signInWithGoogle}>
-              <div className="flex items-center justify-center">
+              <div className="flex justify-center items-center">
                 <GoogleIcon />
                 <span>Sign up with Google</span>
               </div>
