@@ -17,17 +17,16 @@ const signUp: NextPage = () => {
       });
   };
 
-  // NOTE: GitHub連携用
-  // const github = new GithubAuthProvider();
-  // const signInWithGitHub = () => {
-  //   signInWithRedirect(auth, github)
-  //     .then((e) => {
-  //       console.log(e);
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
+  const github = new GithubAuthProvider();
+  const signInWithGitHub = () => {
+    signInWithRedirect(auth, github)
+      .then((e) => {
+        console.log(e);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="h-screen bg-white">
@@ -65,6 +64,11 @@ const signUp: NextPage = () => {
                 <span>Sign up with Google</span>
               </div>
             </button>
+            <button onClick={signInWithGitHub}>
+              <div className="flex justify-center items-center">
+                <span>github</span>
+              </div>
+            </button>
             <div className=" pt-6 pb-12">
               <p className="text-sm">
                 既にアカウントをお持ちですか？
@@ -81,3 +85,6 @@ const signUp: NextPage = () => {
 };
 
 export default signUp;
+
+// TODO: 不要なconsoleを消す
+// TODO: スタイルの修正
