@@ -4,7 +4,7 @@ import { getAuth } from "firebase/auth";
 import "firebase/auth";
 import { apiKey, appId, authDomain, messagingSenderId, mesurementId, projectId, storageKey } from "../constants/env";
 
-const config = {
+export const config = {
   apiKey: apiKey,
   authDomain: authDomain,
   projectId: projectId,

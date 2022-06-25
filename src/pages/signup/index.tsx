@@ -1,8 +1,34 @@
 import Link from "next/link";
+import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
+import { auth } from "src/components/utils/libs/firebase";
 import type { NextPage } from "next";
 
-const signup: NextPage = () => {
+const signUp: NextPage = () => {
+  const googleProvider = new GoogleAuthProvider();
+
+  const signInWithGoogle = () => {
+    signInWithRedirect(auth, googleProvider)
+      .then((res) => {
+        console.log(res);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  // NOTE: GitHub連携用
+  // const github = new GithubAuthProvider();
+  // const signInWithGitHub = () => {
+  //   signInWithRedirect(auth, github)
+  //     .then((e) => {
+  //       console.log(e);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
+
   return (
     <div className="h-screen bg-white">
       <div className="flex flex-wrap w-full">
@@ -33,7 +59,7 @@ const signup: NextPage = () => {
                 <p className="mt-2 ml-6 text-xs">あとで変更することも可能です</p>
               </div>
             </div>
-            <button>
+            <button onClick={signInWithGoogle}>
               <div className="flex justify-center items-center">
                 <GoogleIcon />
                 <span>Sign up with Google</span>
@@ -53,6 +79,5 @@ const signup: NextPage = () => {
     </div>
   );
 };
-export default signup;
 
-// 一旦消して、
+export default signUp;
