@@ -1,7 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
-import "firebase/auth";
+import { FirebaseApp, getApps, initializeApp } from "firebase/app";
+import { Firestore, getFirestore } from "firebase/firestore";
+import { Auth, getAuth } from "firebase/auth";
 import { apiKey, appId, authDomain, messagingSenderId, mesurementId, projectId, storageKey } from "../constants/env";
 
 export const config = {
@@ -14,14 +13,14 @@ export const config = {
   measurementId: mesurementId,
 };
 
-function initFirebase() {
-  if (typeof window !== undefined) {
-    initializeApp(config);
-    console.log("Firebase has been init successfully");
-  }
+let app: FirebaseApp;
+let auth: Auth;
+let db: Firestore;
+
+if (typeof window !== "undefined" && !getApps().length) {
+  app = initializeApp(config);
+  auth = getAuth();
+  db = getFirestore();
 }
 
-const app = initializeApp(config);
-const db = getFirestore(app);
-const auth = getAuth();
-export { initFirebase, db, app, auth };
+export { db, app, auth };
