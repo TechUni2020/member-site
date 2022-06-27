@@ -1,30 +1,26 @@
 import Link from "next/link";
 import {
   browserLocalPersistence,
-  getRedirectResult,
   GithubAuthProvider,
   GoogleAuthProvider,
   setPersistence,
+  signInWithPopup,
   signInWithRedirect,
 } from "firebase/auth";
-import { addDoc, doc, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
+import { doc, DocumentData, setDoc, Timestamp } from "firebase/firestore";
+import router from "next/router";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
 import { auth, db } from "src/components/utils/libs/firebase";
 import type { NextPage } from "next";
 
 const signUp: NextPage = () => {
   const googleProvider = new GoogleAuthProvider();
-  // eslint-disable-next-line react-hooks/rules-of-hooks
-  const router = useRouter();
-
+  
   const signInWithGoogle = async () => {
     await setPersistence(auth, browserLocalPersistence)
       .then(async () => {
-        await signInWithRedirect(auth, googleProvider);
-      })
-      .catch((error) => {
-        console.log(error);
+        signInWithPopup(auth, googleProvider)
+        router.push("/")
       });
   };
 

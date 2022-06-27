@@ -19,8 +19,8 @@ let db: Firestore;
 
 if (typeof window !== "undefined" && !getApps().length) {
   app = initializeApp(config);
-  auth = getAuth();
-  db = getFirestore();
+  auth = getAuth(app);
+  db = getFirestore(app);
 }
 
 export { db, app, auth };

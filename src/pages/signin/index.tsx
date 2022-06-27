@@ -1,20 +1,26 @@
 import Link from "next/link";
-import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
+import { browserLocalPersistence, browserSessionPersistence, getRedirectResult, GithubAuthProvider, GoogleAuthProvider, setPersistence, signInWithRedirect } from "firebase/auth";
+import { doc, Timestamp, DocumentData, setDoc } from "firebase/firestore";
+import router from "next/router";
+import { useRecoilState } from "recoil";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
-import { auth } from "src/components/utils/libs/firebase";
+import { auth, db } from "src/components/utils/libs/firebase";
+import { currentUserState } from "src/global-states/atoms";
 import type { NextPage } from "next";
 
-const signUp: NextPage = () => {
-  const googleProvider = new GoogleAuthProvider();
-
-  const signInWithGoogle = () => {
-    signInWithRedirect(auth, googleProvider)
-      .then((res) => {
-        console.log(res);
+const signIn: NextPage = () => {
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  
+  const signInWithGoogle = async () => {
+    const provider = new GoogleAuthProvider();
+    await setPersistence(auth, browserLocalPersistence).then(async() => {
+      await signInWithRedirect(auth, provider).then(async() => {
+        await getRedirectResult(auth).then((result) => {
+          setCurrentUser(result!.user);
+        })
       })
-      .catch((error) => {
-        console.log(error);
-      });
+    })
+    router.push('/')
   };
 
   const github = new GithubAuthProvider();
@@ -84,7 +90,7 @@ const signUp: NextPage = () => {
   );
 };
 
-export default signUp;
+export default signIn;
 
 // TODO: 不要なconsoleを消す
 // TODO: スタイルの修正
