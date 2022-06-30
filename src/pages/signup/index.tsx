@@ -61,3 +61,4 @@ const signUp: NextPage = () => {
 export default signUp;
 
 // TODO: 不要なconsoleを消す
+// todo: LoginButtonを共通化してそっから持ってくる
