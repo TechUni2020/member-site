@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Layout } from "src/components/layout";
 import { AppLoading } from "src/components/ui-libraries/AppLoading";
 
@@ -5,8 +6,9 @@ const Top = () => {
   return (
     <>
       <Layout>
-        <AppLoading />
-        <h1 className="text-red-500">top</h1>
+        <Suspense fallback={<AppLoading />}>
+          <h1>top</h1>
+        </Suspense>
       </Layout>
     </>
   );
