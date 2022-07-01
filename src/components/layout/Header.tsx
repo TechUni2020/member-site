@@ -1,4 +1,4 @@
-import { memo, ReactNode } from "react";
+import { FC, memo, ReactNode } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { UserCircleIcon } from "../ui-libraries/icon/UserCircleIcon";
@@ -8,7 +8,7 @@ type HeaderProps = {
   navItem: ReactNode;
 };
 
-export const NavItem = memo(() => {
+const NavItem: FC = memo(() => {
   return (
     <div className="flex gap-5 items-center">
       <BellIcon />
@@ -20,7 +20,7 @@ export const NavItem = memo(() => {
 });
 NavItem.displayName = "NavItem";
 
-export const Header = memo(({ navItem }: HeaderProps) => {
+export const Header: FC<HeaderProps> = memo(({ navItem }: HeaderProps) => {
   return (
     <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-12 border-b">
       <Link href={"/"}>
@@ -36,3 +36,4 @@ Header.displayName = "Header";
 // todo: userの画像を表示する
 // todo: ログアウト処理
 // mapで回して、アイコンにbellとuserCircleIconを挿入する
+// 通知・ユーザーアイコンをクリックした時に、モーダル表示する
