@@ -1,5 +1,4 @@
-// import Menubar from "./MenuBar";
-import { Header, NavItem } from "./Header";
+import { Header } from "./Header";
 import { SideBar } from "./Sidebar";
 import type { FC, ReactNode } from "react";
 
@@ -12,7 +11,7 @@ export const Layout: FC<Props> = (props) => {
 
   return (
     <div className="">
-      <Header navItem={<NavItem />} />
+      <Header />
       <div className="flex">
         <SideBar />
         <div className="flex flex-col grow">

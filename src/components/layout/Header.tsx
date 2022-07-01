@@ -1,14 +1,10 @@
-import { FC, memo, ReactNode } from "react";
+import { FC, memo } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { UserCircleIcon } from "../ui-libraries/icon/UserCircleIcon";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 
-type HeaderProps = {
-  navItem: ReactNode;
-};
-
-const NavItem: FC = memo(() => {
+export const NavItem: FC = memo(() => {
   return (
     <div className="flex gap-5 items-center">
       <BellIcon />
@@ -20,13 +16,13 @@ const NavItem: FC = memo(() => {
 });
 NavItem.displayName = "NavItem";
 
-export const Header: FC<HeaderProps> = memo(({ navItem }: HeaderProps) => {
+export const Header: FC = memo(() => {
   return (
     <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-12 border-b">
       <Link href={"/"}>
         <Image src={"/favicons/favicon-32x32.png"} width={32} height={32} alt="Tech.Uniアイコン" />
       </Link>
-      {navItem}
+      <NavItem />
     </header>
   );
 });
