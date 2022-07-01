@@ -1,18 +1,10 @@
-import { memo, ReactNode } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
-import { auth } from "../utils/libs/firebase";
-import { UsersIcon } from "../ui-libraries/icon/UsersIcon";
-import { UserCircleIcon } from "../ui-libraries/icon/UserCircleIcon";
-import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
-import { BellIcon } from "../ui-libraries/icon/BellIcon";
-import { TextIcon } from "../ui-libraries/icon/TextIcon";
 import { Button } from "@mantine/core";
-
-type HeaderProps = {
-  rightItem: ReactNode;
-};
+import Link from "next/link";
+import { auth } from "../utils/libs/firebase";
+import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
+import { UsersIcon } from "../ui-libraries/icon/UsersIcon";
+import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
+import { TextIcon } from "../ui-libraries/icon/TextIcon";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: "/" },
@@ -49,33 +41,3 @@ export const SideBar = () => {
     </div>
   );
 };
-
-export const RightItem = memo(() => {
-  return (
-    <div className="flex gap-5 items-center">
-      <BellIcon />
-      <Link href={"/setting"}>
-        <a className="p-2 hover:bg-gray-200 rounded-full">
-          <UserCircleIcon />
-        </a>
-      </Link>
-    </div>
-  );
-});
-RightItem.displayName = "RightItem";
-
-export const Header = memo(({ rightItem }: HeaderProps) => {
-  return (
-    <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-12 border-b">
-      <Link href={"/"}>
-        <Image src={"/favicons/favicon-32x32.png"} width={32} height={32} alt="Tech.Uniアイコン" />
-      </Link>
-      {rightItem}
-    </header>
-  );
-});
-Header.displayName = "Header";
-
-// todo : ボタンのコンポーネント化
-// todo: userの画像を表示する
-// todo: ログアウト処理
