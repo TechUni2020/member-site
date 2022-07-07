@@ -1,35 +1,21 @@
-import { RecoilRoot, useRecoilState } from "recoil";
 import "src/styles/globals.css";
+
+import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
-import { useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { User } from "firebase/auth";
-import { db } from "src/components/utils/libs/firebase";
-import { currentUserState } from "src/global-states/atoms";
+import { Auth } from "src/components/ui-libraries/Auth";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
       {/* signupページ以外で毎回ログインの有無を確認  */}
-      {router.pathname === "/signup" ? null : <Auth />}
+      {router.pathname === "/signup" ? (
+        <Component {...pageProps} />
+      ) : (
+        <Auth>
+          <Component {...pageProps} />
+        </Auth>
+      )}
     </RecoilRoot>
   );
 };
 export default App;
-
-const Auth = () => {
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
-
-  useEffect(() => {
-    const uid: string | null = localStorage.getItem("currentUser");
-    const docRef = doc(db, "users", uid ?? "");
-    getDoc(docRef).then((doc) => {
-      if (doc.exists()) {
-        setCurrentUser(doc.data() as User);
-      }
-    });
-  }, []);
-
-  return null;
-};
