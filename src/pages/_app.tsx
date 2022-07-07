@@ -2,7 +2,7 @@ import "src/styles/globals.css";
 
 import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
-import { AuthProvider } from "src/components/ui-libraries/Auth";
+import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (

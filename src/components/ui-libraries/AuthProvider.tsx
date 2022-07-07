@@ -18,7 +18,11 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
   useEffect(() => {
     const uid: string | null = localStorage.getItem("currentUser");
-    const docRef = doc(db, "users", uid ?? "");
+    if (!uid) {
+      router.push("/signup");
+      return;
+    }
+    const docRef = doc(db, "users", uid);
     getDoc(docRef)
       .then((doc) => {
         if (doc.exists()) {

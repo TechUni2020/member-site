@@ -43,6 +43,7 @@ const SignUp: NextPage = () => {
         initAddData();
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const initAddData = async () => {
