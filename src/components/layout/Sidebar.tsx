@@ -1,10 +1,13 @@
-import { Button } from "@mantine/core";
 import Link from "next/link";
-import { auth } from "../utils/libs/firebase";
+import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
 import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
 import { UsersIcon } from "../ui-libraries/icon/UsersIcon";
 import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
 import { TextIcon } from "../ui-libraries/icon/TextIcon";
+import { AppButton } from "../ui-libraries/AppButton";
+import { successToast } from "../ui-libraries/AppToast";
+import { auth } from "../utils/libs/firebase";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: "/" },
@@ -14,13 +17,22 @@ const MENU = [
 ];
 
 export const SideBar = () => {
-  const logout = auth.signOut();
+  const router = useRouter();
   const handleLogout = () => {
-    logout;
+    signOut(auth)
+      .then(() => {
+        successToast();
+        router.push("/signup");
+      })
+      .catch((error) => {
+        // エラーが発生しましたをslackに通知
+        console.error(error);
+      });
   };
+
   return (
     <div>
-      <aside className="flex sticky top-10 flex-col  h-[calc(100vh-3rem)] border-r">
+      <aside className="flex sticky top-10 flex-col justify-between  h-[calc(100vh-3rem)] border-r">
         <ul>
           {MENU.map((menu) => {
             return (
@@ -33,10 +45,18 @@ export const SideBar = () => {
             );
           })}
         </ul>
-        <button onClick={handleLogout} className="p-1 m-3 text-sm bg-blue-200 hover:bg-blue-300 rounded-md">
+        <AppButton
+          type="button"
+          color="gray"
+          size="xs"
+          radius="md"
+          variant="outline"
+          compact
+          onClick={handleLogout}
+          className="mx-auto mb-5"
+        >
           ログアウト
-        </button>
-        <Button>ログアウト</Button>
+        </AppButton>
       </aside>
     </div>
   );

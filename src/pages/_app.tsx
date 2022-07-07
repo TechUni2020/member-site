@@ -2,6 +2,7 @@ import "src/styles/globals.css";
 
 import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
+import { Toaster } from "react-hot-toast";
 import { FC, useEffect, useState } from "react";
 import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
 import { Modal } from "src/components/feature/Modal";
@@ -11,6 +12,7 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
       <AppPage Component={Component} pageProps={pageProps} router={router} />
+      <Toaster />
     </RecoilRoot>
   );
 };
