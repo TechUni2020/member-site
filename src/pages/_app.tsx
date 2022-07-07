@@ -21,9 +21,7 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     setPassword(localStorage.getItem(TECH_UNI));
-    if (!password) {
-      setOpened(true);
-    }
+    setOpened(true);
   }, [opened]);
 
   if (!password) return <Modal opened={opened} setOpened={setOpened} />;
