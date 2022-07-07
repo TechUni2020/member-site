@@ -2,7 +2,7 @@ import "src/styles/globals.css";
 
 import { RecoilRoot } from "recoil";
 import { AppProps } from "next/app";
-import { Auth } from "src/components/ui-libraries/Auth";
+import { AuthProvider } from "src/components/ui-libraries/Auth";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
@@ -11,9 +11,9 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
       {router.pathname === "/signup" ? (
         <Component {...pageProps} />
       ) : (
-        <Auth>
+        <AuthProvider>
           <Component {...pageProps} />
-        </Auth>
+        </AuthProvider>
       )}
     </RecoilRoot>
   );
