@@ -5,3 +5,4 @@ export const storageKey = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET;
 export const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID;
 export const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID;
 export const mesurementId = process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID;
+export const techUniPassword = process.env.NEXT_PUBLIC_TECH_UNI_PASSWORD;
