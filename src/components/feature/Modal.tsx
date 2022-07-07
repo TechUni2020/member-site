@@ -17,7 +17,7 @@ export const Modal: FC<Props> = ({ opened, setOpened }) => {
     setPassword(e.target.value);
   };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (password === techUniPassword) {
       localStorage.setItem(TECH_UNI, password);
