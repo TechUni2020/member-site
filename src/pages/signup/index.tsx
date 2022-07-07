@@ -14,6 +14,7 @@ import { useRouter } from "next/router";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
 import { auth, db } from "src/components/utils/libs/firebase";
 import { GitHubIcon } from "src/components/ui-libraries/GithubIcon";
+import { UID } from "src/components/utils/constants/tokens";
 import type { NextPage } from "next";
 
 type ButtonProps = {
@@ -85,7 +86,7 @@ const SignUp: NextPage = () => {
   const signInWithGoogle = async () => {
     await setPersistence(auth, browserLocalPersistence).then(async () => {
       signInWithPopup(auth, googleProvider).then(async (res) => {
-        localStorage.setItem("currentUser", res.user.uid);
+        localStorage.setItem(UID, res.user.uid);
       });
     });
   };
