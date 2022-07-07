@@ -1,14 +1,21 @@
-import { RecoilRoot } from "recoil";
-import type { AppProps } from "next/app";
 import "src/styles/globals.css";
 
-const App = ({ Component, pageProps }: AppProps): JSX.Element => {
+import { RecoilRoot } from "recoil";
+import { AppProps } from "next/app";
+import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
+
+const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
-      <Component {...pageProps} />
+      {/* signupページ以外で毎回ログインの有無を確認  */}
+      {router.pathname === "/signup" ? (
+        <Component {...pageProps} />
+      ) : (
+        <AuthProvider>
+          <Component {...pageProps} />
+        </AuthProvider>
+      )}
     </RecoilRoot>
   );
 };
 export default App;
-
-// todo: ログイン済みのユーザー情報があるかどうかをチェックする

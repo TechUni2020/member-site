@@ -1,7 +1,7 @@
+import { User } from "firebase/auth";
 import { atom } from "recoil";
-import { CurrentUserType } from "src/components/types/type";
 
-export const currentUserState = atom<CurrentUserType | null>({
+export const currentUserState = atom<User | null>({
   key: "currentUserState",
   default: null,
 });

@@ -1,7 +1,18 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
-import { FC, ReactNode } from "react";
+import {
+  browserLocalPersistence,
+  getAuth,
+  GithubAuthProvider,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithPopup,
+  signInWithRedirect,
+} from "firebase/auth";
+import { FC, ReactNode, useEffect } from "react";
+import { doc, Timestamp, DocumentData, setDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
-import { auth } from "src/components/utils/libs/firebase";
+import { auth, db } from "src/components/utils/libs/firebase";
 import { GitHubIcon } from "src/components/ui-libraries/GithubIcon";
 import type { NextPage } from "next";
 
@@ -23,17 +34,60 @@ const LoginButton: FC<ButtonProps> = ({ Icon, text, onClick }) => {
   );
 };
 
-const signUp: NextPage = () => {
+const SignUp: NextPage = () => {
+  const router = useRouter();
+
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        initAddData();
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const initAddData = async () => {
+    const { currentUser } = getAuth();
+
+    if (currentUser === null) return;
+
+    // userコレクションの中に入っているものの構成にする
+    const docRef = doc(db, "users", currentUser.uid);
+    const data = {
+      bio: "",
+      createdAt: Timestamp.now(),
+      department: "",
+      description: "",
+      github: "",
+      grade: "",
+      id: "",
+      instagram: "",
+      knownAs: "",
+      profilePicture: "",
+      twitter: "",
+      displayName: currentUser.displayName,
+      email: currentUser.email,
+      uid: currentUser.uid,
+      university: "",
+    } as DocumentData;
+
+    setDoc(docRef, data, { merge: true })
+      .then(() => {
+        router.push("/");
+      })
+      .catch((e) => {
+        console.log(`set failed: ${e}`);
+      });
+  };
+
   const googleProvider = new GoogleAuthProvider();
 
-  const signInWithGoogle = () => {
-    signInWithRedirect(auth, googleProvider)
-      .then((res) => {
-        console.log(res);
-      })
-      .catch((error) => {
-        console.log(error);
+  const signInWithGoogle = async () => {
+    await setPersistence(auth, browserLocalPersistence).then(async () => {
+      signInWithPopup(auth, googleProvider).then(async (res) => {
+        localStorage.setItem("currentUser", res.user.uid);
       });
+    });
   };
 
   const github = new GithubAuthProvider();
@@ -58,7 +112,7 @@ const signUp: NextPage = () => {
   );
 };
 
-export default signUp;
+export default SignUp;
 
 // TODO: 不要なconsoleを消す
 // todo: LoginButtonを共通化してそっから持ってくる
