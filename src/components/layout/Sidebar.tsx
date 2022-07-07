@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { Toaster } from "react-hot-toast";
 import { useRouter } from "next/router";
 import { getAuth, signOut } from "firebase/auth";
 import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
@@ -22,7 +21,7 @@ export const SideBar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        successToast;
+        successToast();
         router.push("/signup");
       })
       .catch((error) => {
@@ -58,7 +57,6 @@ export const SideBar = () => {
         >
           ログアウト
         </AppButton>
-        <Toaster />
       </aside>
     </div>
   );
