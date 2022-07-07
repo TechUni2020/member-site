@@ -12,6 +12,7 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
       <AppPage Component={Component} pageProps={pageProps} router={router} />
+      <Toaster />
     </RecoilRoot>
   );
 };
@@ -31,7 +32,6 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
   return (
     <AuthProvider>
       <Component {...pageProps} />
-      <Toaster />
     </AuthProvider>
   );
 };
