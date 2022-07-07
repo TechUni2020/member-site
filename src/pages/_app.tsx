@@ -11,13 +11,14 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
     <RecoilRoot>
       <Component {...pageProps} />
+      {/* signupページ以外で毎回ログインの有無を確認  */}
       {router.pathname === "/signup" ? null : <Auth />}
     </RecoilRoot>
   );
 };
 export default App;
 
-export const Auth = () => {
+const Auth = () => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
   useEffect(() => {

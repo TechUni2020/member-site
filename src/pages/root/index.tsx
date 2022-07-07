@@ -7,10 +7,6 @@ import { currentUserState } from "src/global-states/atoms";
 const Top = () => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
-  useEffect(() => {
-    console.log("currentUser", currentUser);
-  }, [currentUser]);
-
   return (
     <>
       <Layout>
