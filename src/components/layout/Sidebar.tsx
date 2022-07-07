@@ -1,12 +1,13 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { getAuth, signOut } from "firebase/auth";
+import { signOut } from "firebase/auth";
 import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
 import { UsersIcon } from "../ui-libraries/icon/UsersIcon";
 import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
 import { TextIcon } from "../ui-libraries/icon/TextIcon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { successToast } from "../ui-libraries/AppToast";
+import { auth } from "../utils/libs/firebase";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: "/" },
@@ -17,7 +18,6 @@ const MENU = [
 
 export const SideBar = () => {
   const router = useRouter();
-  const auth = getAuth();
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
