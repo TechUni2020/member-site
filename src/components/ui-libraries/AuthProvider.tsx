@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "src/global-states/atoms";
+import { UID } from "../utils/constants/tokens";
 import { db } from "../utils/libs/firebase";
 import { AppLoading } from "./AppLoading";
 
@@ -17,7 +18,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   const router = useRouter();
 
   useEffect(() => {
-    const uid: string | null = localStorage.getItem("currentUser");
+    const uid: string | null = localStorage.getItem(UID);
     if (!uid) {
       router.push("/signup");
       return;
