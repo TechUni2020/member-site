@@ -16,10 +16,6 @@ export const NavItem: FC = memo(() => {
     setOpend(!opend);
   };
 
-  // ユーザーが変更する可能性があるので、profilePictureをfirebase側から取ってくる方がいい
-  // uidに一致したやつを取ってくるuseCurrentUser
-  // なので、初期値はそれを保存する設定にしてこっちからはuid一致で取得する方針でいく
-
   return (
     <div className="flex gap-5 items-center">
       <BellIcon />
