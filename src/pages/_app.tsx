@@ -5,7 +5,7 @@ import { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 import { FC, useEffect, useState } from "react";
 import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
-import { Modal } from "src/components/feature/Modal";
+import { PassWordModal } from "src/components/feature/PassWordModal";
 import { TECH_UNI } from "src/components/utils/constants/tokens";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
@@ -26,7 +26,7 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
     setOpened(true);
   }, [opened]);
 
-  if (!password) return <Modal opened={opened} setOpened={setOpened} />;
+  if (!password) return <PassWordModal opened={opened} setOpened={setOpened} />;
   if (router.pathname === "/signup") return <Component {...pageProps} />;
 
   return (

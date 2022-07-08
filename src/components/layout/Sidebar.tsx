@@ -8,11 +8,13 @@ import { TextIcon } from "../ui-libraries/icon/TextIcon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { successToast } from "../ui-libraries/AppToast";
 import { auth } from "../utils/libs/firebase";
+import { MemberIcon } from "../ui-libraries/icon/Member";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: "/" },
+  { icon: <MemberIcon />, label: "メンバー", href: "/member" },
   { icon: <UsersIcon />, label: "1on1", href: "/1on1" },
-  { icon: <CalendarIcon />, label: "カレンダー", href: "/calendar" },
+  { icon: <CalendarIcon />, label: "イベント", href: "/calendar" },
   { icon: <TextIcon />, label: "教材", href: "/text" },
 ];
 

@@ -9,7 +9,7 @@ type Props = {
   setOpened: (opened: boolean) => void;
 };
 
-export const Modal: FC<Props> = ({ opened, setOpened }) => {
+export const PassWordModal: FC<Props> = ({ opened, setOpened }) => {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | undefined>(undefined);
 
