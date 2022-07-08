@@ -64,7 +64,7 @@ const SignUp: NextPage = () => {
       id: "",
       instagram: "",
       knownAs: "",
-      profilePicture: "",
+      photoURL: currentUser.photoURL,
       twitter: "",
       displayName: currentUser.displayName,
       email: currentUser.email,
