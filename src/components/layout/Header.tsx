@@ -3,30 +3,38 @@ import { FC, memo, useState } from "react";
 import Link from "next/link";
 import { useRecoilValue } from "recoil";
 import Image from "next/image";
+import { Avatar } from "@mantine/core";
 import { currentUserState } from "src/global-states/atoms";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
 
 export const NavItem: FC = memo(() => {
-  const [opend, setOpend] = useState(false);
-  const default_url = "/default_icon.jpeg";
+  const [settingOpend, setSettingOpend] = useState(false);
   const currentUser = useRecoilValue(currentUserState);
 
-  const handleModal = () => {
-    setOpend(!opend);
+  const handleSettingModal = () => {
+    setSettingOpend(!settingOpend);
   };
 
   return (
     <div className="flex gap-5 items-center">
-      <BellIcon />
-      <button onClick={handleModal}>
-        <img
-          src={currentUser?.photoURL ? currentUser.photoURL : default_url}
-          alt="ユーザ"
-          className="w-10 h-10 rounded-full hover:opacity-90"
-        />
+      <button className="hover:text-gray-700 bg-white">
+        <BellIcon />
       </button>
-      <SettingModal opened={opend} setOpened={handleModal}></SettingModal>
+      <button onClick={handleSettingModal} className="rounded-full hover:opacity-90">
+        {currentUser?.photoURL ? (
+          <Avatar
+            radius="xl"
+            size={40}
+            className="hover:opacity-80"
+            src={currentUser?.photoURL}
+            alt={currentUser?.displayName ? currentUser.displayName : "ゲスト"}
+          />
+        ) : (
+          <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />
+        )}
+      </button>
+      <SettingModal opened={settingOpend} setOpened={handleSettingModal}></SettingModal>
     </div>
   );
 });
@@ -34,7 +42,7 @@ NavItem.displayName = "NavItem";
 
 export const Header: FC = memo(() => {
   return (
-    <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-12 border-b">
+    <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-16 border-b">
       <Link href={"/"}>
         <Image src={"/favicons/favicon-32x32.png"} width={32} height={32} alt="Tech.Uniアイコン" />
       </Link>
