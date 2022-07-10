@@ -1,13 +1,12 @@
 import { Group, Avatar } from "@mantine/core";
 import React, { FC, memo, useState } from "react";
 import { useRecoilState } from "recoil";
-import { User } from "firebase/auth";
-import { currentUserState } from "src/global-states/atoms";
+import { currentUserState, CurrentUser } from "src/global-states/atoms";
 
 type ImageInputProps = {
   setFile: (img: File | null) => void;
-  currentUser: User | null;
-  setCurrentUser: (user: User) => void;
+  currentUser: CurrentUser | null;
+  setCurrentUser: (user: CurrentUser) => void;
 };
 
 const ImageInput: FC<ImageInputProps> = ({ setFile, currentUser, setCurrentUser }) => {

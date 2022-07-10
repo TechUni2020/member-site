@@ -15,6 +15,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
   const [name, setName] = useState<string | null | undefined>(currentUser?.displayName);
   const [email, setEmail] = useState<string | null | undefined>(currentUser?.email);
+  const [university, setUniversity] = useState<string | null | undefined>(currentUser?.university);
 
   const handleSave = () => {
     console.log(name);
@@ -29,15 +30,25 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
         label="名前"
         variant="filled"
         placeholder="名前"
+        className="mt-2"
         value={name ? name : ""}
         onChange={(e) => setName(e.currentTarget.value)}
       />
       <TextInput
         label="メールアドレス"
         variant="filled"
+        className="mt-2"
         placeholder="techuni@code.com"
         value={email ? email : ""}
         onChange={(e) => setEmail(e.currentTarget.value)}
+      />
+      <TextInput
+        label="大学"
+        variant="filled"
+        className="mt-2"
+        placeholder="tech大学"
+        value={university ? university : ""}
+        onChange={(e) => setUniversity(e.currentTarget.value)}
       />
       <div className="mt-5 w-full text-center">
         <AppButton type="button" color="blue" size="md" radius="md" variant="filled" className="" onClick={handleSave}>
