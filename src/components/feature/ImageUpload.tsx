@@ -14,7 +14,6 @@ const ImageInput: FC<ImageInputProps> = ({ setFile, currentUser, setCurrentUser 
   const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files !== null) {
       setFile(e.target.files[0]);
-      //   setCurrentUser({ ...currentUser, photoURL: URL.createObjectURL(e.target.files[0]) });
     }
   };
   return (
@@ -25,7 +24,7 @@ const ImageInput: FC<ImageInputProps> = ({ setFile, currentUser, setCurrentUser 
   );
 };
 
-export const ImageUploadIcon: FC = memo(() => {
+export const ImageUpload: FC = memo(() => {
   const [file, setFile] = useState<File | null>(null);
   const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
 
@@ -43,4 +42,4 @@ export const ImageUploadIcon: FC = memo(() => {
     </Group>
   );
 });
-ImageUploadIcon.displayName = "ImageUploadIcon";
+ImageUpload.displayName = "ImageUpload";
