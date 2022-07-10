@@ -8,12 +8,12 @@ import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
 
 export const NavItem: FC = memo(() => {
-  const [opend, setOpend] = useState(false);
+  const [opened, setOpened] = useState(false);
   const default_url = "/default_icon.jpeg";
   const currentUser = useRecoilValue(currentUserState);
 
   const handleModal = () => {
-    setOpend(!opend);
+    setOpened(!opened);
   };
 
   return (
@@ -26,7 +26,7 @@ export const NavItem: FC = memo(() => {
           className="w-10 h-10 rounded-full hover:opacity-90"
         />
       </button>
-      <SettingModal opened={opend} setOpened={handleModal}></SettingModal>
+      <SettingModal opened={opened} setOpened={handleModal}></SettingModal>
     </div>
   );
 });
