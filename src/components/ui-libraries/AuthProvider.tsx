@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import { currentUserState } from "src/global-states/atoms";
+import { LINKS } from "../utils/constants/link";
 import { UID } from "../utils/constants/tokens";
 import { db } from "../utils/libs/firebase";
 import { AppLoading } from "./AppLoading";
@@ -20,7 +21,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const uid: string | null = localStorage.getItem(UID);
     if (!uid) {
-      router.push("/signup");
+      router.push(LINKS.SIGNUP);
       return;
     }
     const docRef = doc(db, "users", uid);
@@ -41,7 +42,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
   if (isLoading) return <AppLoading />;
   if (!currentUser) {
-    router.push("/signup");
+    router.push(LINKS.SIGNUP);
     return null;
   }
 
