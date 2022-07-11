@@ -9,9 +9,10 @@ import { AppButton } from "../ui-libraries/AppButton";
 import { successToast } from "../ui-libraries/AppToast";
 import { auth } from "../utils/libs/firebase";
 import { MemberIcon } from "../ui-libraries/icon/Member";
+import { LINKS } from "../utils/constants/link";
 
 const MENU = [
-  { icon: <HomeIcon />, label: "ホーム", href: "/" },
+  { icon: <HomeIcon />, label: "ホーム", href: LINKS.HOME },
   { icon: <MemberIcon />, label: "メンバー", href: "/member" },
   { icon: <UsersIcon />, label: "1on1", href: "/1on1" },
   { icon: <CalendarIcon />, label: "イベント", href: "/calendar" },
@@ -24,7 +25,7 @@ export const SideBar = () => {
     signOut(auth)
       .then(() => {
         successToast();
-        router.push("/signup");
+        router.push(LINKS.SIGNUP);
       })
       .catch((error) => {
         // エラーが発生しましたをslackに通知

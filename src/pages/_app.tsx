@@ -7,6 +7,7 @@ import { FC, useEffect, useState } from "react";
 import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
 import { AuthModal } from "src/components/feature/AuthModal";
 import { TECH_UNI } from "src/components/utils/constants/tokens";
+import { LINKS } from "src/components/utils/constants/link";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
@@ -27,7 +28,7 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
   }, [opened]);
 
   if (!password) return <AuthModal opened={opened} setOpened={setOpened} />;
-  if (router.pathname === "/signup") return <Component {...pageProps} />;
+  if (router.pathname === LINKS.SIGNUP) return <Component {...pageProps} />;
 
   return (
     <AuthProvider>

@@ -6,6 +6,7 @@ import Image from "next/image";
 import { currentUserState } from "src/global-states/atoms";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
+import { LINKS } from "../utils/constants/link";
 import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
@@ -50,7 +51,7 @@ NavItem.displayName = "NavItem";
 export const Header: FC = memo(() => {
   return (
     <header className="flex sticky top-0 z-10 justify-between items-center py-3 px-4 h-12 border-b">
-      <Link href={"/"}>
+      <Link href={LINKS.HOME}>
         <Image src={"/favicons/favicon-32x32.png"} width={32} height={32} alt="Tech.Uniアイコン" />
       </Link>
       <NavItem />
