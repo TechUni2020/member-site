@@ -7,27 +7,42 @@ import { currentUserState } from "src/global-states/atoms";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
+import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
-  const [opend, setOpend] = useState(false);
+  const [openSetting, setOpenSetting] = useState(false);
+  const [openNotification, setOpenNotification] = useState(false);
   const default_url = "/default_icon.jpeg";
   const currentUser = useRecoilValue(currentUserState);
 
-  const handleModal = () => {
-    setOpend(!opend);
-  };
-
   return (
     <div className="flex gap-5 items-center">
-      <BellIcon />
-      <button onClick={handleModal}>
+      <div
+        onClick={() => {
+          setOpenNotification(!openNotification);
+        }}
+        className="cursor-pointer select-none"
+      >
+        <BellIcon />
+      </div>
+      <NotificationModal bellOpened={openNotification} setBellOpened={setOpenNotification} />
+      <button
+        onClick={() => {
+          setOpenSetting(!openSetting);
+        }}
+      >
         <img
           src={currentUser?.photoURL ? currentUser.photoURL : default_url}
           alt="ユーザ"
           className="w-10 h-10 rounded-full hover:opacity-90"
         />
       </button>
-      <SettingModal opened={opend} setOpened={handleModal}></SettingModal>
+      <SettingModal
+        opened={openSetting}
+        setOpened={() => {
+          setOpenSetting(!openSetting);
+        }}
+      ></SettingModal>
     </div>
   );
 });
