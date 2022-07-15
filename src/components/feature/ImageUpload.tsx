@@ -1,7 +1,6 @@
 import { Group, Avatar } from "@mantine/core";
-import React, { FC, memo, useState } from "react";
-import { useRecoilState } from "recoil";
-import { currentUserState, CurrentUser } from "src/global-states/atoms";
+import React, { FC, memo } from "react";
+import { CurrentUser } from "src/global-states/atoms";
 
 type Props = {
   file: File | null;

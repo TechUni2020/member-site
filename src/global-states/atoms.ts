@@ -12,7 +12,7 @@ export type CurrentUser = {
   instagram: string | undefined;
   photoURL: string;
   twitter: string | undefined;
-  uid: number;
+  uid: string;
   university: string | undefined;
 };
 

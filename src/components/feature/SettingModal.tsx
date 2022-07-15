@@ -3,7 +3,9 @@ import { Modal as MantineModal, Select } from "@mantine/core";
 import { TextInput } from "@mantine/core";
 import { useRecoilState } from "recoil";
 import { At } from "tabler-icons-react";
+import { doc, setDoc } from "firebase/firestore";
 import { currentUserState } from "src/global-states/atoms";
+import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
 import { AppInput } from "../ui-libraries/Input";
@@ -27,12 +29,10 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const [twitter, setTwitter] = useState<string | undefined>(currentUser?.twitter);
   const [instagram, setInstagram] = useState<string | undefined>(currentUser?.instagram);
 
-  if (!currentUser) {
-    return null;
-  }
-  const handleSave = () => {
-    // setCurrentUser({ ...currentUser, displayName: name, email: email, university: university });
-    // localstateで保存していて、firestoreに保存する
+  if (!currentUser) return null;
+  const userRef = doc(db, "users", currentUser.uid);
+
+  const handleSave = async () => {
     setCurrentUser({
       ...currentUser,
       displayName: displayName,
@@ -44,9 +44,9 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
       twitter: twitter,
       instagram: instagram,
     });
+    await setDoc(userRef, currentUser);
     setOpened();
   };
-  console.log(currentUser);
 
   return (
     <MantineModal opened={opened} onClose={setOpened} title="設定">
@@ -131,5 +131,4 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   );
 };
 
-// todo: 画像変更・名前・大学・学年・SNS・emailを設定のモーダルから編集できるようにする
 // todo: AppInputを使う

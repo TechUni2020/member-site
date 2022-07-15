@@ -60,7 +60,6 @@ const SignUp: NextPage = () => {
       github: "",
       faculty: "",
       grade: "",
-      id: "",
       instagram: "",
       photoURL: currentUser.photoURL,
       twitter: "",
