@@ -1,3 +1,4 @@
-export const Link = {
+export const LINKS = {
   HOME: "/",
+  SIGNUP: "/signup",
 };
