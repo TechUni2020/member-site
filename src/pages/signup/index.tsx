@@ -67,6 +67,7 @@ const SignUp: NextPage = () => {
       displayName: currentUser.displayName,
       email: currentUser.email,
       uid: currentUser.uid,
+      university: "",
     } as DocumentData;
 
     setDoc(docRef, data, { merge: true })
