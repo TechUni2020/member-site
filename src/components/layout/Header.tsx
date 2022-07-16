@@ -11,11 +11,11 @@ import { LINKS } from "../utils/constants/link";
 import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
-  const [settingOpend, setSettingOpend] = useState(false);
+  const [settingOpened, setSettingOpened] = useState(false);
   const currentUser = useRecoilValue(currentUserState);
 
   const handleSettingModal = () => {
-    setSettingOpend(!settingOpend);
+    setSettingOpened(!settingOpened);
   };
 
   return (
@@ -36,7 +36,7 @@ export const NavItem: FC = memo(() => {
           <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />
         )}
       </button>
-      <SettingModal opened={settingOpend} setOpened={handleSettingModal} />
+      <SettingModal opened={settingOpened} setOpened={handleSettingModal} />
     </div>
   );
 });
