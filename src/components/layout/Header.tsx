@@ -36,7 +36,7 @@ export const NavItem: FC = memo(() => {
           <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />
         )}
       </button>
-      <SettingModal opened={settingOpend} setOpened={handleSettingModal}></SettingModal>
+      <SettingModal opened={settingOpend} setOpened={handleSettingModal} />
     </div>
   );
 });

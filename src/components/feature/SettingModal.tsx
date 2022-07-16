@@ -8,7 +8,6 @@ import { CurrentUser, currentUserState } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
-import { AppInput } from "../ui-libraries/Input";
 
 type Props = {
   opened: boolean;
@@ -85,7 +84,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           />
         </label>
       </Group>
-      <AppInput
+      <TextInput
         required
         label="名前"
         placeholder="名前"
@@ -129,32 +128,35 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
         dropdownComponent="div"
         onChange={(e) => setFormData({ ...formData, faculty: e })}
       />
-      <AppInput
-        // todo: TwitterIconを追加
+      <TextInput
         required
+        variant="filled"
         label="github"
         icon={<At size={18} />}
         placeholder="techuni"
         value={github}
         onChange={(e) => setFormData({ ...formData, github: e.target.value })}
+        className="mt-4"
       />
-      <AppInput
-        // todo: TwitterIconを追加
+      <TextInput
         required
+        variant="filled"
         label="Twitter"
         icon={<At size={18} />}
         placeholder="techuni"
         value={twitter}
         onChange={(e) => setFormData({ ...formData, twitter: e.target.value })}
+        className="mt-4"
       />
-      <AppInput
-        // todo: InstagramIconを追加
+      <TextInput
         required
+        variant="filled"
         label="instagram"
         icon={<At size={18} />}
         placeholder="techuni"
         value={instagram}
         onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
+        className="mt-4"
       />
       <div className="mt-5 w-full text-center">
         <AppButton type="button" color="blue" size="md" radius="md" variant="filled" className="" onClick={handleSave}>
