@@ -1,9 +1,8 @@
-import { User } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import { currentUserState } from "src/global-states/atoms";
+import { CurrentUser, currentUserState } from "src/global-states/atoms";
 import { LINKS } from "../utils/constants/link";
 import { UID } from "../utils/constants/tokens";
 import { db } from "../utils/libs/firebase";
@@ -28,7 +27,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
     getDoc(docRef)
       .then((doc) => {
         if (doc.exists()) {
-          setCurrentUser(doc.data() as User);
+          setCurrentUser(doc.data() as CurrentUser);
         }
       })
       .catch((err) => {

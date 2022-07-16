@@ -1,0 +1,33 @@
+export const facultyData = [
+  { value: "文学部", label: "文学部", group: "文系" },
+  { value: "心理学部", label: "心理学部", group: "文系" },
+  { value: "教育学部", label: "教育学部", group: "文系" },
+  { value: "社会学部", label: "社会学部", group: "文系" },
+  { value: "神学部", label: "神学部", group: "文系" },
+  { value: "外国語学部", label: "外国語学部", group: "文系" },
+  { value: "教養学部", label: "教養学部", group: "文系" },
+  { value: "法学部", label: "法学部", group: "文系" },
+  { value: "経済学部", label: "経済学部", group: "文系" },
+  { value: "経営学部", label: "経営学部", group: "文系" },
+  { value: "商学部", label: "商学部", group: "文系" },
+  { value: "総合政策学部", label: "総合政策学部", group: "文系" },
+  { value: "国際学部", label: "国際学部", group: "文系" },
+  { value: "理工学部", label: "理工学部", group: "理系" },
+  { value: "医学部", label: "医学部", group: "理系" },
+  { value: "薬学部", label: "薬学部", group: "理系" },
+  { value: "農学部", label: "農学部", group: "理系" },
+  { value: "情報学部", label: "情報学部", group: "理系" },
+  { value: "海洋学部", label: "海洋学部", group: "理系" },
+  { value: "スポーツ健康科学部", label: "スポーツ健康科学部", group: "理系" },
+  { value: "生命科学部", label: "生命科学部", group: "理系" },
+  { value: "その他", label: "その他", group: "その他" },
+];
+
+export const gradeData = [
+  { value: "1", label: "1年生" },
+  { value: "2", label: "2年生" },
+  { value: "3", label: "3年生" },
+  { value: "4", label: "4年生" },
+  { value: "5", label: "修士1年生" },
+  { value: "6", label: "修士2年生" },
+];
