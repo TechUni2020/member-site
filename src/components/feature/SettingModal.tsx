@@ -52,6 +52,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
       photoURL: photoURL,
     });
     await updateDoc(userRef, formData);
+    setFile(null);
     setOpened();
   };
 
@@ -75,7 +76,13 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
         {file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />}
         <label htmlFor="settingImg" className="p-2 rounded-md border-2  border-dashed hover:cursor-pointer">
           <p className="text-gray-400 hover:text-gray-500">ファイルを選ぶ</p>
-          <input type="file" accept="image/png" className="hidden" onChange={handleOnChange} id="settingImg" />
+          <input
+            type="file"
+            accept="image/png, image/jpeg, image/jpg"
+            className="hidden"
+            onChange={handleOnChange}
+            id="settingImg"
+          />
         </label>
       </Group>
       <AppInput
