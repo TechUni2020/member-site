@@ -10,14 +10,18 @@
     "fix": "next lint --fix"
   },
   "dependencies": {
+    "@mantine/dropzone": "^4.2.12",
+    "@mantine/form": "^4.2.12",
     "firebase": "^9.8.3",
     "next": "12.1.6",
     "react": "18.1.0",
-    "react-dom": "18.1.0"
+    "react-dom": "18.1.0",
+    "react-hot-toast": "^2.2.0",
+    "tabler-icons-react": "^1.52.0"
   },
   "devDependencies": {
-    "@mantine/core": "^4.2.9",
-    "@mantine/hooks": "^4.2.9",
+    "@mantine/core": "^4.2.12",
+    "@mantine/hooks": "^4.2.12",
     "@mantine/next": "^4.2.9",
     "@types/node": "17.0.42",
     "@types/react": "18.0.12",
