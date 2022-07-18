@@ -1,18 +1,18 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC, memo, useState } from "react";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
 import Image from "next/image";
 import { Avatar } from "@mantine/core";
-import { currentUserState } from "src/global-states/atoms";
+import { useCurrentUser } from "src/global-states/atoms";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
-import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
+  const { currentUser } = useCurrentUser();
   const [settingOpened, setSettingOpened] = useState(false);
-  const currentUser = useRecoilValue(currentUserState);
+
+  if (!currentUser) return null;
 
   const handleSettingModal = () => {
     setSettingOpened(!settingOpened);
@@ -24,13 +24,13 @@ export const NavItem: FC = memo(() => {
         <BellIcon />
       </button>
       <button onClick={handleSettingModal} className="rounded-full hover:opacity-90">
-        {currentUser?.photoURL ? (
+        {currentUser.photoURL ? (
           <Avatar
             radius="xl"
             size={40}
             className="hover:opacity-80"
-            src={currentUser?.photoURL}
-            alt={currentUser?.displayName ? currentUser.displayName : "ゲスト"}
+            src={currentUser.photoURL}
+            alt={currentUser.displayName ? currentUser.displayName : "ゲスト"}
           />
         ) : (
           <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />

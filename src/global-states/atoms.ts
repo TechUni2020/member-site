@@ -1,4 +1,5 @@
 import { atom } from "recoil";
+import { useRecoilState } from "recoil";
 
 export type CurrentUser = {
   bio: string | undefined;
@@ -20,3 +21,14 @@ export const currentUserState = atom<CurrentUser | null>({
   key: "currentUserState",
   default: null,
 });
+
+type UseCurrentUserType = {
+  currentUser: CurrentUser | null;
+  setCurrentUser: (currentUser: CurrentUser | null) => void;
+};
+
+export const useCurrentUser = (): UseCurrentUserType => {
+  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+
+  return { currentUser, setCurrentUser };
+};
