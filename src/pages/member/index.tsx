@@ -10,7 +10,9 @@ const Member = () => {
       <p>アクティブメンバー</p>
       <p>自分の興味のある分野を専門としているメンバー一覧</p>
       <p>それぞれ閉じるボタンをつけれるようにする。</p>
-      <MemberCard />
+      <div className="flex flex-wrap w-full">
+        <MemberCard />
+      </div>
     </Layout>
   );
 };
