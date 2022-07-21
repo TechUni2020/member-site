@@ -1,10 +1,9 @@
 import { FC, useState } from "react";
 import { Avatar, Group, Modal as MantineModal, Select } from "@mantine/core";
 import { TextInput } from "@mantine/core";
-import { useRecoilState } from "recoil";
 import { At } from "tabler-icons-react";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
-import { CurrentUser, currentUserState } from "src/global-states/atoms";
+import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
@@ -17,7 +16,7 @@ type Props = {
 type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id" | "bio">;
 
 export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     displayName: currentUser?.displayName,
@@ -68,8 +67,8 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
         <Avatar
           radius="xl"
           size={40}
-          src={currentUser?.photoURL}
-          alt={currentUser?.displayName ? currentUser.displayName : "ゲスト"}
+          src={currentUser.photoURL}
+          alt={currentUser.displayName ? currentUser.displayName : "ゲスト"}
         />
         <p className="font-bold">→</p>
         {file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />}
