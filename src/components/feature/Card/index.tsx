@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC, memo } from "react";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
 import { GitHubIcon } from "src/components/ui-libraries/icon/GitHubIcon";
-import { CurrentUser, currentUserState } from "src/global-states/atoms";
+import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { InstagramIcon } from "src/components/ui-libraries/icon/InstagramIcon";
 import { TwitterIcon } from "src/components/ui-libraries/icon/TwitterIcon";
 
@@ -101,7 +100,7 @@ const Ribbon = () => {
 };
 
 const ProfileImg = () => {
-  const currentUser = useRecoilValue(currentUserState);
+  const { currentUser } = useCurrentUser();
   return (
     <div className="w-24 text-center">
       <div className="flex justify-center items-center p-1 bg-gradient-to-r from-pink-200 via-yellow-200 to-green-200 rounded-full">
