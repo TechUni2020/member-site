@@ -1,8 +1,7 @@
 import { doc, getDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { FC, ReactNode, useEffect, useState } from "react";
-import { useRecoilState } from "recoil";
-import { CurrentUser, currentUserState } from "src/global-states/atoms";
+import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { LINKS } from "../utils/constants/link";
 import { UID } from "../utils/constants/tokens";
 import { db } from "../utils/libs/firebase";
@@ -13,7 +12,7 @@ type Props = {
 };
 
 export const AuthProvider: FC<Props> = ({ children }) => {
-  const [currentUser, setCurrentUser] = useRecoilState(currentUserState);
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const [isLoading, setIsLoading] = useState(true);
   const router = useRouter();
 
