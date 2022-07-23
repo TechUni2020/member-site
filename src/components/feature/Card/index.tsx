@@ -104,7 +104,7 @@ const Ribbon = () => {
 type ProfileProps = { size: number; isAdmin?: boolean };
 
 const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
-  const currentUser = useRecoilValue(currentUserState);
+  const { currentUser } = useCurrentUser();
   return (
     <div className="flex flex-col justify-center items-center">
       {isAdmin ? (
