@@ -2,7 +2,7 @@ import { Suspense } from "react";
 import { Layout } from "src/components/layout";
 import { AppLoading } from "src/components/ui-libraries/AppLoading";
 
-const Study = () => {
+const StudyMeeting = () => {
   return (
     <Layout>
       <Suspense fallback={<AppLoading />}>
@@ -11,4 +11,4 @@ const Study = () => {
     </Layout>
   );
 };
-export default Study;
+export default StudyMeeting;

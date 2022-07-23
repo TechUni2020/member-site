@@ -4,10 +4,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { Avatar } from "@mantine/core";
 import { useCurrentUser } from "src/global-states/atoms";
-import { BellIcon } from "../ui-libraries/icon/BellIcon";
+import { BellIcon, CalendarIcon } from "../ui-libraries/icon";
 import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
-import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
 import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
@@ -22,7 +21,6 @@ export const NavItem: FC = memo(() => {
   };
   const handleNotificationModal = () => {
     setNotificationOpened(!notificationOpend);
-    console.log(notificationOpend);
   };
 
   return (

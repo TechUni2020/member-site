@@ -1,21 +1,15 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
-import { HomeIcon } from "../ui-libraries/icon/HomeIcon";
-import { UsersIcon } from "../ui-libraries/icon/UsersIcon";
-import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
-import { TextIcon } from "../ui-libraries/icon/TextIcon";
+import { HomeIcon, UsersIcon, TextIcon, StudyIcon, MemberIcon } from "../ui-libraries/icon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { successToast } from "../ui-libraries/AppToast";
 import { auth } from "../utils/libs/firebase";
-import { MemberIcon } from "../ui-libraries/icon/Member";
 import { LINKS } from "../utils/constants/link";
-import { StudyIcon } from "../ui-libraries/icon/StudyIcon";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: LINKS.HOME },
   { icon: <MemberIcon />, label: "メンバー", href: LINKS.MEMBER },
-  // { icon: <CalendarIcon />, label: "イベント", href: "/calendar" },
   { icon: <TextIcon />, label: "教材", href: LINKS.TEXT },
   { icon: <StudyIcon />, label: "勉強会", href: LINKS.STUDY },
   { icon: <UsersIcon />, label: "1on1", href: LINKS.ONEONONE },
