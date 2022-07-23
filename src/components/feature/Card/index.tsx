@@ -1,9 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC, memo } from "react";
 import Link from "next/link";
-import { useRecoilValue } from "recoil";
 import { GitHubIcon } from "src/components/ui-libraries/icon/GitHubIcon";
-import { CurrentUser, currentUserState } from "src/global-states/atoms";
+import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { InstagramIcon } from "src/components/ui-libraries/icon/InstagramIcon";
 import { TwitterIcon } from "src/components/ui-libraries/icon/TwitterIcon";
 
@@ -105,7 +104,7 @@ const Ribbon = () => {
 type ProfileProps = { size: number; isAdmin?: boolean };
 
 const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
-  const currentUser = useRecoilValue(currentUserState);
+  const { currentUser } = useCurrentUser();
   return (
     <div className="flex flex-col justify-center items-center">
       {isAdmin ? (
@@ -127,7 +126,7 @@ const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
 Profile.displayName = "Profile";
 
 const ProfileImg = () => {
-  const currentUser = useRecoilValue(currentUserState);
+  const { currentUser } = useCurrentUser();
   return (
     <div>
       <img src={currentUser?.photoURL} alt="山本新の画像" className={`rounded-full w-12`} />
