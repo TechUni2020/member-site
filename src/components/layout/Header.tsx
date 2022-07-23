@@ -7,21 +7,31 @@ import { useCurrentUser } from "src/global-states/atoms";
 import { BellIcon } from "../ui-libraries/icon/BellIcon";
 import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
+import { CalendarIcon } from "../ui-libraries/icon/CalendarIcon";
+import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
   const { currentUser } = useCurrentUser();
   const [settingOpened, setSettingOpened] = useState(false);
+  const [notificationOpend, setNotificationOpened] = useState(false);
 
   if (!currentUser) return null;
 
   const handleSettingModal = () => {
     setSettingOpened(!settingOpened);
   };
+  const handleNotificationModal = () => {
+    setNotificationOpened(!notificationOpend);
+    console.log(notificationOpend);
+  };
 
   return (
     <div className="flex gap-5 items-center">
-      <button className="hover:text-gray-700 bg-white">
+      <button onClick={handleNotificationModal} className="hover:text-gray-700 bg-white">
         <BellIcon />
+      </button>
+      <button className="hover:text-gray-700 bg-white">
+        <CalendarIcon />
       </button>
       <button onClick={handleSettingModal} className="rounded-full hover:opacity-90">
         {currentUser.photoURL ? (
@@ -37,6 +47,7 @@ export const NavItem: FC = memo(() => {
         )}
       </button>
       <SettingModal opened={settingOpened} setOpened={handleSettingModal} />
+      <NotificationModal bellOpened={notificationOpend} setBellOpened={handleNotificationModal} />
     </div>
   );
 });
