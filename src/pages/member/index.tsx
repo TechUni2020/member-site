@@ -31,8 +31,8 @@ const Member = () => {
         <div className="pt-5">
           <h1 className="font-bold">コミッティー</h1>
           <div className="flex gap-x-5">
-            <AdminCard />
-            <AdminCard />
+            {/* <AdminCard />
+            <AdminCard /> */}
           </div>
         </div>
         <div>
