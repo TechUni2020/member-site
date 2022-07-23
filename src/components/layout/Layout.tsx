@@ -15,7 +15,7 @@ export const Layout: FC<Props> = (props) => {
       <div className="flex">
         <SideBar />
         <div className="flex flex-col grow">
-          <main className="flex-1 pl-4 bg-gray-50">{children}</main>
+          <main className="flex-1 px-5 bg-gray-50">{children}</main>
         </div>
       </div>
     </div>
