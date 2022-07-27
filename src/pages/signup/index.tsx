@@ -57,14 +57,17 @@ const SignUp: NextPage = () => {
     const data = {
       bio: "",
       createdAt: Timestamp.now(),
-      github: "",
+      displayName: currentUser.displayName,
+      email: currentUser.email,
       faculty: "",
+      field: "",
+      github: "",
       grade: "",
       instagram: "",
       photoURL: currentUser.photoURL,
+      position: 0,
+      status: 0,
       twitter: "",
-      displayName: currentUser.displayName,
-      email: currentUser.email,
       uid: currentUser.uid,
       university: "",
     } as DocumentData;
@@ -112,5 +115,4 @@ const SignUp: NextPage = () => {
 
 export default SignUp;
 
-// TODO: 不要なconsoleを消す
 // todo: LoginButtonを共通化してそっから持ってくる
