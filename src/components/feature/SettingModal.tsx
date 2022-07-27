@@ -1,5 +1,5 @@
 import { FC, useState } from "react";
-import { Avatar, Group, Modal as MantineModal, Select, Tabs, Text, TextInput } from "@mantine/core";
+import { Avatar, Group, Modal as MantineModal, Select, Tabs, TextInput } from "@mantine/core";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
@@ -94,11 +94,16 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
       radius={10}
     >
       <Tabs defaultValue="アカウント">
-        <Tabs.Tab value="アカウント" icon={<InfoIcon />}>
-          <Text weight={700} size="lg">
+        <Tabs.List>
+          <Tabs.Tab value="アカウント" icon={<InfoIcon />}>
             アカウント
-          </Text>
-          <Group>
+          </Tabs.Tab>
+          <Tabs.Tab value="その他" icon={<SettingIcon />}>
+            その他
+          </Tabs.Tab>
+        </Tabs.List>
+        <Tabs.Panel value="アカウント">
+          <Group className="pt-4">
             <Avatar
               radius="xl"
               size={40}
@@ -135,7 +140,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
             className="mt-4"
           />
-          <Group>
+          <Group className="flex justify-between">
             <TextInput
               label="大学"
               variant="filled"
@@ -166,7 +171,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             />
           </Group>
 
-          <Group>
+          <Group className="flex justify-between">
             <TextInput
               required
               variant="filled"
@@ -180,7 +185,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             <TextInput
               required
               variant="filled"
-              label="Twitter"
+              label="twitter"
               icon={<TwitterIcon />}
               placeholder="techuni"
               value={twitter}
@@ -199,7 +204,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             />
           </Group>
           <TextInput
-            required
             variant="filled"
             label="一言"
             placeholder="はじめまして！"
@@ -207,32 +211,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             onChange={(e) => setFormData({ ...formData, bio: e.target.value })}
             className="mt-4"
           />
-          <Group position="center">
-            <HoverCard width={320} shadow="md" withArrow openDelay={200} closeDelay={400}>
-              <HoverCard.Target>
-                <Avatar src="https://avatars.githubusercontent.com/u/79146003?s=200&v=4" radius="xl" />
-              </HoverCard.Target>
-              <HoverCard.Dropdown>
-                <Group>
-                  <Avatar src="https://avatars.githubusercontent.com/u/79146003?s=200&v=4" radius="xl" />
-                </Group>
-
-                <Text size="sm" mt="md">
-                  Customizable React components and hooks library with focus on usability, accessibility and developer
-                  experience
-                </Text>
-
-                <Group mt="md" spacing="xl">
-                  <Text size="sm">
-                    <b>0</b> Following
-                  </Text>
-                  <Text size="sm">
-                    <b>1,174</b> Followers
-                  </Text>
-                </Group>
-              </HoverCard.Dropdown>
-            </HoverCard>
-          </Group>
           <div className="mt-5 w-full text-center">
             <AppButton
               type="button"
@@ -246,10 +224,12 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               保存
             </AppButton>
           </div>
-        </Tabs.Tab>
-        <Tabs.Tab value="その他" icon={<SettingIcon />}>
-          その他
-        </Tabs.Tab>
+        </Tabs.Panel>
+        <Tabs.Panel value="その他">
+          <h1>メール通知</h1>
+          <h1>テーマカラー</h1>
+          <h1>個人アカウントの管理</h1>
+        </Tabs.Panel>
       </Tabs>
     </MantineModal>
   );
