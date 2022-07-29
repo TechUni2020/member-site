@@ -89,18 +89,24 @@ const LinkComponent = () => {
   );
 };
 
-const Ribbon = () => {
+type RibbonProps = { position:  number}
+const Ribbon:FC<RibbonProps> = ({position}) => {
+  const positionTitle = (position: number) => {
+      if(position === 3) return "副代表";
+      if(position === 4) return "代表";
+      if(position === 5) return "副会長";
+      if(position === 6) return "会長";
+    }    
   return (
     <>
-      <div className="w-24 font-bold text-center bg-red-400 rounded-full">
-        <h1 className="">副代表</h1>
+      <div className="w-24 text-center bg-gradient-to-r from-pink-200 via-yellow-200 to-green-200">
+        <h1 className="font-serif text-lg font-extrabold">{positionTitle(position)}</h1>
       </div>
     </>
   );
 };
 
 type ProfileProps = { size: number; isAdmin?: boolean };
-
 const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
   const { currentUser } = useCurrentUser();
   return (
@@ -108,14 +114,14 @@ const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
       {isAdmin ? (
         <>
           <div className="flex justify-center items-center p-1 bg-gradient-to-r from-pink-200 via-yellow-200 to-green-200 rounded-full">
-            <img src={currentUser?.photoURL} alt="山本新の画像" className={`rounded-full w-${size}`} />
+            <img src={currentUser?.photoURL} alt={`${currentUser?.displayName}の画像`} className={`rounded-full w-${size}`} />
           </div>
-          <p className="pt-1 text-lg font-bold text-center">山本 新</p>
+          <p className="pt-1 text-lg font-bold text-center">{currentUser?.displayName}</p>
         </>
       ) : (
         <>
-          <img src={currentUser?.photoURL} alt="山本新の画像" className={`rounded-full w-${size}`} />
-          <p className="pt-1 text-sm font-bold text-center">山本 新</p>
+          <img src={currentUser?.photoURL} alt={`${currentUser?.displayName}の画像`} className={`rounded-full w-${size}`} />
+          <p className="pt-1 text-sm font-bold text-center">{currentUser?.displayName}</p>
         </>
       )}
     </div>
@@ -127,21 +133,21 @@ const ProfileImg = () => {
   const { currentUser } = useCurrentUser();
   return (
     <div>
-      <img src={currentUser?.photoURL} alt="山本新の画像" className={`rounded-full w-12`} />
-      <p className="pt-1 text-xs font-bold ">山本 新</p>
+      <img src={currentUser?.photoURL} alt={`${currentUser?.displayName}の画像`} className={`rounded-full w-12`} />
+      <p className="pt-1 text-xs ">{currentUser?.displayName}</p>
     </div>
   );
 };
 
-type AdminCardProps = Omit<CurrentUser, "uid" | "createdAt" | "email">;
+type AdminCardProps = Omit<CurrentUser, "uid" | "createdAt" | "email"> 
 
-export const AdminCard: FC<AdminCardProps> = memo(() => {
+export const AdminCard: FC<AdminCardProps> = memo(({ active, bio, displayName,faculty,field,github,grade,instagram, photoURL,position, status, university }) => {    
   return (
     <div className="relative py-6 px-4  bg-white hover:bg-gray-50 rounded-md shadow-md">
       <div className="flex flex-col justify-center items-center">
-        <Ribbon />
-        <div className="items-center">
-          <Profile size={24} isAdmin />
+        <Ribbon position={position}/>
+        <div className="items-center pt-2">
+          <Profile size={24} isAdmin  />
         </div>
       </div>
       <div className="px-2">

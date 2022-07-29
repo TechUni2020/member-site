@@ -11,3 +11,4 @@ export * from "./TwitterIcon";
 export * from "./UsersIcon";
 export * from "./InfoIcon";
 export * from "./SettingIcon";
+export * from "./LogoutIcon";

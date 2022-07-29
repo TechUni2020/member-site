@@ -12,12 +12,12 @@ const Member = () => {
 
   useEffect(() => {
     try {
-      const foo = async () => {
+      const getUsers = async () => {
         const colRef = collection(db, "users");
         const users = await getDocs(colRef);
         setUsers(users.docs.map((doc) => doc.data() as CurrentUser));
       };
-      foo();
+      getUsers();
     } finally {
       setIsLoading(false);
     }
@@ -25,15 +25,16 @@ const Member = () => {
 
   if (isLoading) return <AppLoading />;
 
+  const Committee = users.map((user) => {
+    if (user.position === 3 || 4 || 5) return <AdminCard key={user.displayName} {...user} />;
+  });
+
   return (
     <Layout>
       <div className="flex flex-col flex-wrap gap-5 w-full">
         <div className="pt-5">
           <h1 className="font-bold">コミッティー</h1>
-          <div className="flex gap-x-5">
-            {/* <AdminCard />
-            <AdminCard /> */}
-          </div>
+          <div className="flex gap-x-5">{Committee}</div>
         </div>
         <div>
           <h1 className="font-bold">アクティブメンバー</h1>

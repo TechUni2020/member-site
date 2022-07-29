@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
-import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon } from "../ui-libraries/icon";
+import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon, LogoutIcon } from "../ui-libraries/icon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { successToast } from "../ui-libraries/AppToast";
 import { auth } from "../utils/libs/firebase";
@@ -21,7 +21,7 @@ export const SideBar = () => {
     signOut(auth)
       .then(() => {
         successToast();
-        router.push(LINKS.SIGNUP);
+        router.push(LINKS.LOGIN);
       })
       .catch((error) => {
         // エラーが発生しましたをslackに通知
@@ -35,12 +35,14 @@ export const SideBar = () => {
         <ul>
           {MENU.map((menu) => {
             return (
-              <Link href={menu.href} key={menu.label}>
-                <a className="flex items-center py-3 pr-8  pl-3 hover:bg-gray-200">
-                  {menu.icon}
-                  <span className="pr-8 pl-3 font-bold">{menu.label}</span>
-                </a>
-              </Link>
+              <li key={menu.label}>
+                <Link href={menu.href}>
+                  <a className="flex justify-center items-center py-3 hover:bg-gray-100 md:justify-start md:pl-2 transition ease-in delay-50 hover:translate-x-1">
+                    {menu.icon}
+                    <span className="hidden md:inline-block md:pr-8 md:pl-2 md:font-bold">{menu.label}</span>
+                  </a>
+                </Link>
+              </li>
             );
           })}
         </ul>
@@ -49,12 +51,12 @@ export const SideBar = () => {
           color="gray"
           size="xs"
           radius="md"
-          variant="outline"
+          variant="subtle"
           compact
           onClick={handleLogout}
           className="mx-auto mb-5"
         >
-          ログアウト
+          <LogoutIcon />
         </AppButton>
       </aside>
     </div>

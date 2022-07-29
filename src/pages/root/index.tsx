@@ -8,20 +8,7 @@ const Top = () => {
   return (
     <>
       <Layout>
-        <Suspense fallback={<AppLoading />}>
-          <AppButton
-            type="button"
-            color="gray"
-            size="xs"
-            radius="md"
-            variant="outline"
-            compact
-            onClick={successToast}
-            className="mx-auto mb-5"
-          >
-            ログアウト
-          </AppButton>
-        </Suspense>
+        <Suspense fallback={<AppLoading />}></Suspense>
       </Layout>
     </>
   );

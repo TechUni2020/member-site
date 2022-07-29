@@ -2,12 +2,14 @@ import { atom } from "recoil";
 import { useRecoilState } from "recoil";
 
 export type CurrentUser = {
+  active: boolean | undefined;
   bio: string | undefined;
   createdAt: Date;
   displayName: string | undefined;
   email: string | undefined;
   faculty: string | undefined | null;
   field: string | undefined | null;
+  fieldDetails: Array<string> | undefined;
   github: string | undefined;
   grade: string | null | undefined;
   instagram: string | undefined;

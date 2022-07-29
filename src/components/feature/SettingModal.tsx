@@ -1,10 +1,10 @@
-import { FC, useState } from "react";
-import { Avatar, Group, Modal as MantineModal, Select, Tabs, TextInput } from "@mantine/core";
+import React, { FC, forwardRef, useState } from "react";
+import { Avatar, Group, Modal as MantineModal, MultiSelect, Select, Tabs, TextInput, Text } from "@mantine/core";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
-import { facultyData, gradeData } from "../utils/constants/university";
+import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
 import { GitHubIcon, InfoIcon, InstagramIcon, SettingIcon, TwitterIcon } from "../ui-libraries/icon";
 
 type Props = {
@@ -18,11 +18,13 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
+    active: currentUser?.active,
     bio: currentUser?.bio,
     displayName: currentUser?.displayName,
     email: currentUser?.email,
     faculty: currentUser?.faculty,
     field: currentUser?.field,
+    fieldDetails: currentUser?.fieldDetails,
     github: currentUser?.github,
     grade: currentUser?.grade,
     instagram: currentUser?.instagram,
@@ -34,11 +36,13 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   });
 
   const {
+    active,
     bio,
     displayName,
     email,
     faculty,
     field,
+    fieldDetails,
     github,
     grade,
     instagram,
@@ -56,11 +60,13 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const handleSave = async () => {
     setCurrentUser({
       ...currentUser,
+      active: active,
       bio: bio,
       displayName: displayName,
       email: email,
       faculty: faculty,
       field: field,
+      fieldDetails: fieldDetails,
       github: github,
       grade: grade,
       instagram: instagram,
@@ -126,7 +132,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           <TextInput
             required
             label="名前"
-            variant="filled"
             placeholder="名前"
             value={displayName}
             onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
@@ -134,7 +139,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           <TextInput
             required
             label="メールアドレス"
-            variant="filled"
             placeholder="techuni@code.com"
             value={email ? email : ""}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -143,14 +147,12 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           <Group className="flex justify-between">
             <TextInput
               label="大学"
-              variant="filled"
               placeholder="tech大学"
               className="mt-4"
               value={university}
               onChange={(e) => setFormData({ ...formData, university: e.target.value })}
             />
             <Select
-              variant="filled"
               label="学年"
               placeholder="code学年"
               data={gradeData}
@@ -160,7 +162,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               onChange={(e) => setFormData({ ...formData, grade: e })}
             />
             <Select
-              variant="filled"
               label="学部"
               placeholder="code学部"
               data={facultyData}
@@ -174,7 +175,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           <Group className="flex justify-between">
             <TextInput
               required
-              variant="filled"
               label="github"
               icon={<GitHubIcon />}
               placeholder="techuni"
@@ -184,7 +184,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             />
             <TextInput
               required
-              variant="filled"
               label="twitter"
               icon={<TwitterIcon />}
               placeholder="techuni"
@@ -194,7 +193,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
             />
             <TextInput
               required
-              variant="filled"
               label="instagram"
               icon={<InstagramIcon />}
               placeholder="techuni"
@@ -203,8 +201,30 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               className="mt-4"
             />
           </Group>
+
+          <Select
+            required
+            label="最も興味のある分野"
+            placeholder="code学年"
+            data={interestData}
+            className="mt-4"
+            value={field}
+            dropdownComponent="div"
+            onChange={(e) => setFormData({ ...formData, field: e })}
+          />
+          <MultiSelect
+            label="よく使用するフレームワーク・ライブラリー"
+            placeholder="Next.js"
+            searchable
+            nothingFound="見つかりませんでした。"
+            data={fieldDetailsData}
+            className="mt-4"
+            value={fieldDetails}
+            dropdownComponent="div"
+            maxSelectedValues={3}
+            onChange={(e) => setFormData({ ...formData, fieldDetails: e })}
+          />
           <TextInput
-            variant="filled"
             label="一言"
             placeholder="はじめまして！"
             value={bio}
@@ -235,4 +255,4 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   );
 };
 
-// todo: AppInputを使う
+// todo: 最も興味のある分野を選んだら、fieldDetailsが連動するようにする

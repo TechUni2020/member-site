@@ -28,7 +28,7 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
   }, [opened]);
 
   if (!password) return <AuthModal opened={opened} setOpened={setOpened} />;
-  if (router.pathname === LINKS.SIGNUP) return <Component {...pageProps} />;
+  if (router.pathname === LINKS.LOGIN) return <Component {...pageProps} />;
 
   return (
     <AuthProvider>
