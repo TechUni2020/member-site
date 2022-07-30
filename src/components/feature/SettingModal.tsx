@@ -4,6 +4,7 @@ import { TextInput } from "@mantine/core";
 import { At } from "tabler-icons-react";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
@@ -13,11 +14,10 @@ type Props = {
   setOpened: () => void;
 };
 
-type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id" | "bio">;
+export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id" | "bio">;
 
 export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
-  const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     displayName: currentUser?.displayName,
     email: currentUser?.email,
@@ -29,6 +29,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     instagram: currentUser?.instagram,
     photoURL: currentUser?.photoURL as string,
   });
+  const { file, setFile, percent, handleOnChange } = useUploadProfileIcon({ formData, setFormData });
 
   const { displayName, email, university, grade, faculty, github, twitter, instagram, photoURL } = formData;
 
@@ -54,11 +55,10 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     setOpened();
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null) {
-      setFormData({ ...formData, photoURL: URL.createObjectURL(e.target.files[0]) });
-      setFile(e.target.files[0]);
-    }
+  const uploadImage = () => {
+    if (percent === null) return;
+    if (percent !== 100) return <div>{percent}%</div>;
+    return file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />;
   };
 
   return (
@@ -71,7 +71,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           alt={currentUser.displayName ? currentUser.displayName : "ゲスト"}
         />
         <p className="font-bold">→</p>
-        {file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />}
+        {uploadImage()}
         <label htmlFor="settingImg" className="p-2 rounded-md border-2  border-dashed hover:cursor-pointer">
           <p className="text-gray-400 hover:text-gray-500">ファイルを選ぶ</p>
           <input
