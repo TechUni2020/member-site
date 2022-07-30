@@ -10,13 +10,13 @@ export const Layout: FC<Props> = (props) => {
   const { children } = props;
 
   return (
-    <div className="">
+    <div className="min-h-screen">
       <Header />
       <div className="flex">
         <SideBar />
-        <div className="flex flex-col grow">
-          <main className="flex-1 px-5 bg-gray-50">{children}</main>
-        </div>
+        <main className="flex-1 w-0 px-5 bg-gray-50">
+          <div>{children}</div>
+        </main>
       </div>
     </div>
   );

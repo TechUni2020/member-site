@@ -1,10 +1,6 @@
 import Link from "next/link";
-import { useRouter } from "next/router";
-import { signOut } from "firebase/auth";
 import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon, LogoutIcon } from "../ui-libraries/icon";
-import { AppButton } from "../ui-libraries/AppButton";
-import { successToast } from "../ui-libraries/AppToast";
-import { auth } from "../utils/libs/firebase";
+
 import { LINKS } from "../utils/constants/link";
 
 const MENU = [
@@ -16,19 +12,6 @@ const MENU = [
 ];
 
 export const SideBar = () => {
-  const router = useRouter();
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        successToast();
-        router.push(LINKS.LOGIN);
-      })
-      .catch((error) => {
-        // エラーが発生しましたをslackに通知
-        console.error(error);
-      });
-  };
-
   return (
     <div>
       <aside className="flex sticky top-10 flex-col justify-between  h-[calc(100vh-3rem)] border-r">
@@ -46,18 +29,6 @@ export const SideBar = () => {
             );
           })}
         </ul>
-        <AppButton
-          type="button"
-          color="gray"
-          size="xs"
-          radius="md"
-          variant="subtle"
-          compact
-          onClick={handleLogout}
-          className="mx-auto mb-5"
-        >
-          <LogoutIcon />
-        </AppButton>
       </aside>
     </div>
   );

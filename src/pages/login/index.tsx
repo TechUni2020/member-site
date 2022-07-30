@@ -35,7 +35,7 @@ const LoginButton: FC<ButtonProps> = ({ Icon, text, onClick }) => {
   );
 };
 
-const LogIn: NextPage = () => {
+const Login: NextPage = () => {
   const router = useRouter();
 
   useEffect(() => {
@@ -113,6 +113,6 @@ const LogIn: NextPage = () => {
   );
 };
 
-export default LogIn;
+export default Login;
 
 // todo: LoginButtonを共通化してそっから持ってくる

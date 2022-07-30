@@ -1,11 +1,24 @@
-import React, { FC, forwardRef, useState } from "react";
+import { FC, useState } from "react";
 import { Avatar, Group, Modal as MantineModal, MultiSelect, Select, Tabs, TextInput, Text } from "@mantine/core";
+import { successToast } from "../ui-libraries/AppToast";
+import { auth } from "../utils/libs/firebase";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
-import { AppButton } from "../ui-libraries/AppButton";
+import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
 import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
-import { GitHubIcon, InfoIcon, InstagramIcon, SettingIcon, TwitterIcon } from "../ui-libraries/icon";
+import {
+  GitHubIcon,
+  InfoIcon,
+  InstagramIcon,
+  LogoutIcon,
+  SettingIcon,
+  TwitterIcon,
+  DeleteIcon,
+} from "../ui-libraries/icon";
+import { AppButton } from "../ui-libraries/AppButton";
+import { LINKS } from "../utils/constants/link";
 
 type Props = {
   opened: boolean;
@@ -86,6 +99,19 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
       setFormData({ ...formData, photoURL: URL.createObjectURL(e.target.files[0]) });
       setFile(e.target.files[0]);
     }
+  };
+
+  const router = useRouter();
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        successToast();
+        router.push(LINKS.LOGIN);
+      })
+      .catch((error) => {
+        // エラーが発生しましたをslackに通知
+        console.error(error);
+      });
   };
 
   return (
@@ -246,9 +272,29 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="その他">
-          <h1>メール通知</h1>
-          <h1>テーマカラー</h1>
-          <h1>個人アカウントの管理</h1>
+          <Text weight="bold">メール通知</Text>
+          <Text weight="bold">
+            <Text weight="bold">テーマカラー</Text>
+          </Text>
+          <div>
+            <Text weight="bold">個人アカウントの管理</Text>
+            <AppButton
+              type="button"
+              color="red"
+              size="xs"
+              radius="md"
+              variant="subtle"
+              onClick={handleLogout}
+              className="mx-auto mb-5 my-2"
+            >
+              <LogoutIcon />
+              ログアウト
+            </AppButton>
+            <AppButton type="button" color="red" size="xs" radius="md" variant="subtle" className="mx-auto mb-5">
+              <DeleteIcon />
+              アカウントの削除
+            </AppButton>
+          </div>
         </Tabs.Panel>
       </Tabs>
     </MantineModal>

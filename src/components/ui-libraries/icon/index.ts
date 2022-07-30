@@ -12,3 +12,4 @@ export * from "./UsersIcon";
 export * from "./InfoIcon";
 export * from "./SettingIcon";
 export * from "./LogoutIcon";
+export * from "./DeleteIcon";

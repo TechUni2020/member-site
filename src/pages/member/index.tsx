@@ -1,10 +1,11 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
-import { AdminCard, InterestMember, MemberCard } from "src/components/feature/Card";
+import { AdminCard, ActiveMemberCard, MemberCard } from "src/components/feature/Card";
 import { Layout } from "src/components/layout";
 import { AppLoading } from "src/components/ui-libraries/AppLoading";
 import { db } from "src/components/utils/libs/firebase";
 import { CurrentUser } from "src/global-states/atoms";
+import { Text } from "@mantine/core";
 
 const Member = () => {
   const [users, setUsers] = useState<CurrentUser[]>([]);
@@ -26,42 +27,39 @@ const Member = () => {
   if (isLoading) return <AppLoading />;
 
   const Committee = users.map((user) => {
-    if (user.position === 3 || 4 || 5) return <AdminCard key={user.displayName} {...user} />;
+    if (user.position === 3 || user.position === 4 || user.position === 5)
+      return <AdminCard key={user.displayName} {...user} />;
   });
 
   return (
     <Layout>
       <div className="flex flex-col flex-wrap gap-5 w-full">
         <div className="pt-5">
-          <h1 className="font-bold">コミッティー</h1>
-          <div className="flex gap-x-5">{Committee}</div>
+          <Text weight="bold">コミッティー</Text>
+          <div className="flex gap-x-5 flex-wrap gap-y-5">{Committee}</div>
         </div>
+
         <div>
-          <h1 className="font-bold">アクティブメンバー</h1>
+          <Text weight="bold">アクティブメンバー</Text>
+          <ActiveMemberCard />
+        </div>
+
+        <div>
+          <Text weight="bold">自分の興味のある分野を専門としているメンバー</Text>
           <MemberCard />
         </div>
+
         <div>
-          <h1 className="font-bold">自分の興味のある分野を専門としているメンバー</h1>
-          <InterestMember />
+          <Text weight="bold">2回生</Text>
+          <MemberCard />
         </div>
-        <div>
-          <h1 className="font-bold">2回生</h1>
-          <InterestMember />
-        </div>
+
         <div className="font-bold text-center">その他</div>
+        <h1>Member</h1>
+        <p>上に検索バー・分野・学年で絞れるようにする</p>
+        <p>自分の興味のある分野を専門としているメンバー一覧</p>
+        <p>それぞれ閉じるボタンをつけれるようにする。</p>
       </div>
-      <h1>Member</h1>
-      <p>上に検索バー・分野・学年で絞れるようにする</p>
-      <p>コミッティーメンバー</p>
-      <p>アクティブメンバー</p>
-      <p>自分の興味のある分野を専門としているメンバー一覧</p>
-      <p>それぞれ閉じるボタンをつけれるようにする。</p>
-      {users.map((user) => (
-        <div key={user.uid}>{user.uid}</div>
-      ))}
-      {/* <div className="flex flex-wrap w-full">
-        <MemberCard />
-      </div> */}
     </Layout>
   );
 };

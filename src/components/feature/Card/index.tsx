@@ -36,18 +36,21 @@ const UniAndBio = () => {
   );
 };
 
-const FieldInterest = () => {
+type FieldInterestProps = {
+  field: string;
+};
+const FieldInterest: FC<FieldInterestProps> = ({ field }) => {
   return (
     <div className="py-0.5 px-1 w-28 text-sm font-bold text-center text-white  whitespace-nowrap bg-yellow-500 rounded-full">
-      <p>フロントエンド</p>
+      <p>{field}</p>
     </div>
   );
 };
 
-const Interest = () => {
+const InterestGroup = () => {
   return (
     <div>
-      <FieldInterest />
+      <FieldInterest field="フロントエンド" />
       {/*技術・ 3つごとに並べる→6個までしか入力させないようにする */}
       <div className="flex flex-wrap items-center mt-1 w-48">
         <div className="flex justify-center items-center">
@@ -67,20 +70,25 @@ const Interest = () => {
   );
 };
 
-const LinkComponent = () => {
+type LinkComponentProps = {
+  github?: string;
+  twitter?: string;
+  instagram?: string;
+};
+const LinkComponent: FC<LinkComponentProps> = ({ github, twitter, instagram }) => {
   return (
     <div className="flex justify-between px-2 w-[120px]">
-      <Link href={`https://github.com/ `}>
+      <Link href={`https://github.com/${github}`}>
         <a>
           <GitHubIcon />
         </a>
       </Link>
-      <Link href={`https://github.com/ `}>
+      <Link href={`https://twitter.com/${twitter}`}>
         <a>
           <TwitterIcon />
         </a>
       </Link>
-      <Link href={`https://github.com/ `}>
+      <Link href={`https://instagram.com/${instagram}`}>
         <a>
           <InstagramIcon />
         </a>
@@ -89,14 +97,14 @@ const LinkComponent = () => {
   );
 };
 
-type RibbonProps = { position:  number}
-const Ribbon:FC<RibbonProps> = ({position}) => {
+type RibbonProps = { position: number };
+const Ribbon: FC<RibbonProps> = ({ position }) => {
   const positionTitle = (position: number) => {
-      if(position === 3) return "副代表";
-      if(position === 4) return "代表";
-      if(position === 5) return "副会長";
-      if(position === 6) return "会長";
-    }    
+    if (position === 3) return "副代表";
+    if (position === 4) return "代表";
+    if (position === 5) return "副会長";
+    if (position === 6) return "会長";
+  };
   return (
     <>
       <div className="w-24 text-center bg-gradient-to-r from-pink-200 via-yellow-200 to-green-200">
@@ -114,13 +122,21 @@ const Profile: FC<ProfileProps> = memo(({ size, isAdmin }) => {
       {isAdmin ? (
         <>
           <div className="flex justify-center items-center p-1 bg-gradient-to-r from-pink-200 via-yellow-200 to-green-200 rounded-full">
-            <img src={currentUser?.photoURL} alt={`${currentUser?.displayName}の画像`} className={`rounded-full w-${size}`} />
+            <img
+              src={currentUser?.photoURL}
+              alt={`${currentUser?.displayName}の画像`}
+              className={`rounded-full w-${size} h-${size}`}
+            />
           </div>
           <p className="pt-1 text-lg font-bold text-center">{currentUser?.displayName}</p>
         </>
       ) : (
         <>
-          <img src={currentUser?.photoURL} alt={`${currentUser?.displayName}の画像`} className={`rounded-full w-${size}`} />
+          <img
+            src={currentUser?.photoURL}
+            alt={`${currentUser?.displayName}の画像`}
+            className={`rounded-full w-${size}`}
+          />
           <p className="pt-1 text-sm font-bold text-center">{currentUser?.displayName}</p>
         </>
       )}
@@ -139,43 +155,41 @@ const ProfileImg = () => {
   );
 };
 
-type AdminCardProps = Omit<CurrentUser, "uid" | "createdAt" | "email"> 
+type AdminCardProps = Omit<CurrentUser, "uid" | "createdAt" | "email">;
 
-export const AdminCard: FC<AdminCardProps> = memo(({ active, bio, displayName,faculty,field,github,grade,instagram, photoURL,position, status, university }) => {    
-  return (
-    <div className="relative py-6 px-4  bg-white hover:bg-gray-50 rounded-md shadow-md">
-      <div className="flex flex-col justify-center items-center">
-        <Ribbon position={position}/>
-        <div className="items-center pt-2">
-          <Profile size={24} isAdmin  />
+export const AdminCard: FC<AdminCardProps> = memo(
+  ({ active, bio, displayName, faculty, field, github, grade, instagram, photoURL, position, status, university }) => {
+    return (
+      <div className="relative py-6 px-4  bg-white hover:bg-gray-50 rounded-md shadow-md">
+        <div className="flex flex-col justify-center items-center">
+          <Ribbon position={position} />
+          <div className="items-center pt-2">
+            <Profile size={24} isAdmin />
+          </div>
+        </div>
+        <div className="px-2">
+          <InterestGroup />
         </div>
       </div>
-      <div className="px-2">
-        <Interest />
-      </div>
-    </div>
-  );
-});
+    );
+  }
+);
 AdminCard.displayName = "AdminCard";
 
-export const MemberCard = () => {
+export const ActiveMemberCard = () => {
   return (
     <div className="relative py-6 px-4  w-[36em] bg-white hover:bg-gray-50 rounded-md shadow-md">
       <div className="grid grid-cols-5 grid-flow-row">
-        <div className="col-span-1">
-          <div className="flex flex-col justify-between items-center">
-            <Profile size={10} isAdmin={false} />
-          </div>
-        </div>
-        <div className="flex flex-col col-span-4 px-2">
-          <Interest />
+        <div className="flex flex-col justify-between items-center">
+          <Profile size={16} isAdmin={false} />
+          <FieldInterest field="フロントエンド" />
         </div>
       </div>
     </div>
   );
 };
 
-export const InterestMember = () => {
+export const MemberCard = () => {
   return (
     <div className="flex gap-2 py-6 px-4 bg-white hover:bg-gray-50 rounded-md shadow-md">
       <ProfileImg />
