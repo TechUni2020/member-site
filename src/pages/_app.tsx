@@ -8,6 +8,7 @@ import { AuthProvider } from "src/components/ui-libraries/AuthProvider";
 import { AuthModal } from "src/components/feature/AuthModal";
 import { TECH_UNI } from "src/components/utils/constants/tokens";
 import { LINKS } from "src/components/utils/constants/link";
+import { useCurrentUser } from "src/global-states/atoms";
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   return (
@@ -19,6 +20,7 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
 };
 
 const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
+  const { currentUser } = useCurrentUser();
   const [opened, setOpened] = useState(false);
   const [password, setPassword] = useState<string | null>(null);
 
@@ -29,6 +31,9 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
 
   if (!password) return <AuthModal opened={opened} setOpened={setOpened} />;
   if (router.pathname === LINKS.LOGIN) return <Component {...pageProps} />;
+  if (currentUser?.status === 0 && router.pathname !== LINKS.SIGNUP && router.pathname !== LINKS.LOGIN) {
+    return <h1>承認待ちです。</h1>;
+  }
 
   return (
     <AuthProvider>
@@ -38,3 +43,5 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
 };
 
 export default App;
+
+// 承認待ちのコンポーネントを条件分岐で表示
