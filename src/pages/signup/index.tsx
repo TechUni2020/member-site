@@ -11,9 +11,8 @@ import {
 import { FC, ReactNode, useEffect } from "react";
 import { doc, Timestamp, DocumentData, setDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
-import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
 import { auth, db } from "src/components/utils/libs/firebase";
-import { GitHubIcon } from "src/components/ui-libraries/GithubIcon";
+import { GitHubIcon, GoogleIcon } from "src/components/ui-libraries/icon";
 import { UID } from "src/components/utils/constants/tokens";
 import { LINKS } from "src/components/utils/constants/link";
 import type { NextPage } from "next";
@@ -58,14 +57,17 @@ const SignUp: NextPage = () => {
     const data = {
       bio: "",
       createdAt: Timestamp.now(),
-      github: "",
+      displayName: currentUser.displayName,
+      email: currentUser.email,
       faculty: "",
+      field: "",
+      github: "",
       grade: "",
       instagram: "",
       photoURL: currentUser.photoURL,
+      position: 0,
+      status: 0,
       twitter: "",
-      displayName: currentUser.displayName,
-      email: currentUser.email,
       uid: currentUser.uid,
       university: "",
     } as DocumentData;
@@ -113,5 +115,4 @@ const SignUp: NextPage = () => {
 
 export default SignUp;
 
-// TODO: 不要なconsoleを消す
 // todo: LoginButtonを共通化してそっから持ってくる

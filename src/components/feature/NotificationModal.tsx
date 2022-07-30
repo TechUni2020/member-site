@@ -15,7 +15,7 @@ export const NotificationModal: FC<Props> = ({ bellOpened, setBellOpened }) => {
         onClose={() => setBellOpened(false)}
         size="lg"
         radius="md"
-        position={{ top: 45, right: 70 }}
+        position={{ top: 40, right: 70 }}
       >
         <Text size="sm" style={{ marginBottom: 10 }} weight={500}>
           通知
