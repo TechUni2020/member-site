@@ -1,11 +1,11 @@
 import { collection, getDocs } from "firebase/firestore";
 import { useState, useEffect } from "react";
+import { Text } from "@mantine/core";
 import { AdminCard, ActiveMemberCard, MemberCard } from "src/components/feature/Card";
 import { Layout } from "src/components/layout";
 import { AppLoading } from "src/components/ui-libraries/AppLoading";
 import { db } from "src/components/utils/libs/firebase";
 import { CurrentUser } from "src/global-states/atoms";
-import { Text } from "@mantine/core";
 
 const Member = () => {
   const [users, setUsers] = useState<CurrentUser[]>([]);
@@ -36,7 +36,7 @@ const Member = () => {
       <div className="flex flex-col flex-wrap gap-5 w-full">
         <div className="pt-5">
           <Text weight="bold">コミッティー</Text>
-          <div className="flex gap-x-5 flex-wrap gap-y-5">{Committee}</div>
+          <div className="flex flex-wrap gap-5">{Committee}</div>
         </div>
 
         <div>

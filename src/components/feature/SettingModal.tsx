@@ -1,12 +1,11 @@
 import { FC, useState } from "react";
 import { Avatar, Group, Modal as MantineModal, MultiSelect, Select, Tabs, TextInput, Text } from "@mantine/core";
-import { successToast } from "../ui-libraries/AppToast";
-import { auth } from "../utils/libs/firebase";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
-import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
-import { db } from "../utils/libs/firebase";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
+import toast from "react-hot-toast";
+import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { auth, db } from "../utils/libs/firebase";
 import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
 import {
   GitHubIcon,
@@ -28,6 +27,7 @@ type Props = {
 type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
 export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
+  const router = useRouter();
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
@@ -101,11 +101,10 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     }
   };
 
-  const router = useRouter();
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        successToast();
+        toast.success("成功しました");
         router.push(LINKS.LOGIN);
       })
       .catch((error) => {
@@ -285,7 +284,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               radius="md"
               variant="subtle"
               onClick={handleLogout}
-              className="mx-auto mb-5 my-2"
+              className="my-2 mx-auto mb-5"
             >
               <LogoutIcon />
               ログアウト

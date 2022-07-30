@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon, LogoutIcon } from "../ui-libraries/icon";
+import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon } from "../ui-libraries/icon";
 
 import { LINKS } from "../utils/constants/link";
 
@@ -20,7 +20,7 @@ export const SideBar = () => {
             return (
               <li key={menu.label}>
                 <Link href={menu.href}>
-                  <a className="flex justify-center items-center py-3 hover:bg-gray-100 md:justify-start md:pl-2 transition ease-in delay-50 hover:translate-x-1">
+                  <a className="flex justify-center items-center py-3 hover:bg-gray-100 transition ease-in hover:translate-x-1 md:justify-start md:pl-2 delay-75">
                     {menu.icon}
                     <span className="hidden md:inline-block md:pr-8 md:pl-2 md:font-bold">{menu.label}</span>
                   </a>
