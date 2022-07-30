@@ -3,7 +3,7 @@ import { Avatar, Group, Modal as MantineModal, MultiSelect, Select, Tabs, TextIn
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
-import toast from "react-hot-toast";
+import { toast } from "react-hot-toast";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
 import { auth, db } from "../utils/libs/firebase";
 import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
