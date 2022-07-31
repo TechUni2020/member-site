@@ -61,6 +61,7 @@ const Login: NextPage = () => {
       displayName: currentUser.displayName,
       email: currentUser.email,
       faculty: "",
+      fieldDetails: [],
       field: "",
       github: "",
       grade: "",
