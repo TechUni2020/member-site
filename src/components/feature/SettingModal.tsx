@@ -3,36 +3,35 @@ import { Avatar, Group, Modal as MantineModal, Select } from "@mantine/core";
 import { TextInput } from "@mantine/core";
 import { At } from "tabler-icons-react";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
-import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { CurrentUser } from "src/global-states/atoms";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
 
 type Props = {
+  currentUser: CurrentUser;
+  setCurrentUser: (currentUser: CurrentUser) => void;
   opened: boolean;
   setOpened: () => void;
 };
 
 type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id" | "bio">;
 
-export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, setOpened }) => {
   const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
-    displayName: currentUser?.displayName,
-    email: currentUser?.email,
-    university: currentUser?.university,
-    grade: currentUser?.grade,
-    faculty: currentUser?.faculty,
-    github: currentUser?.github,
-    twitter: currentUser?.twitter,
-    instagram: currentUser?.instagram,
-    photoURL: currentUser?.photoURL as string,
+    displayName: currentUser.displayName,
+    email: currentUser.email,
+    university: currentUser.university,
+    grade: currentUser.grade,
+    faculty: currentUser.faculty,
+    github: currentUser.github,
+    twitter: currentUser.twitter,
+    instagram: currentUser.instagram,
+    photoURL: currentUser.photoURL as string,
   });
 
   const { displayName, email, university, grade, faculty, github, twitter, instagram, photoURL } = formData;
-
-  if (!currentUser) return null;
 
   const userRef = doc(db, "users", currentUser.uid) as DocumentReference<CurrentUser>;
 

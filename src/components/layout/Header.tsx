@@ -9,7 +9,7 @@ import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
 
 export const NavItem: FC = memo(() => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const [settingOpened, setSettingOpened] = useState(false);
 
   if (!currentUser) return null;
@@ -36,7 +36,12 @@ export const NavItem: FC = memo(() => {
           <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />
         )}
       </button>
-      <SettingModal opened={settingOpened} setOpened={handleSettingModal} />
+      <SettingModal
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        opened={settingOpened}
+        setOpened={handleSettingModal}
+      />
     </div>
   );
 });
