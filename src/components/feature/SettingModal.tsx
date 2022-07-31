@@ -16,37 +16,38 @@ import {
   TwitterIcon,
   DeleteIcon,
 } from "../ui-libraries/icon";
+import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { LINKS } from "../utils/constants/link";
 
 type Props = {
+  currentUser: CurrentUser;
+  setCurrentUser: (currentUser: CurrentUser) => void;
   opened: boolean;
   setOpened: () => void;
 };
 
-type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
+export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
-export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
-  const router = useRouter();
-  const { currentUser, setCurrentUser } = useCurrentUser();
-  const [file, setFile] = useState<File | null>(null);
+export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, setOpened }) => {
   const [formData, setFormData] = useState<FormData>({
     active: currentUser?.active,
-    bio: currentUser?.bio,
-    displayName: currentUser?.displayName,
-    email: currentUser?.email,
-    faculty: currentUser?.faculty,
-    field: currentUser?.field,
+    bio: currentUser.bio,
+    displayName: currentUser.displayName,
+    email: currentUser.email,
+    faculty: currentUser.faculty,
+    field: currentUser.field,
     fieldDetails: currentUser?.fieldDetails,
-    github: currentUser?.github,
-    grade: currentUser?.grade,
-    instagram: currentUser?.instagram,
-    photoURL: currentUser?.photoURL as string,
-    position: currentUser?.position as number,
-    status: currentUser?.status as number,
-    twitter: currentUser?.twitter,
-    university: currentUser?.university,
+    github: currentUser.github,
+    grade: currentUser.grade,
+    instagram: currentUser.instagram,
+    photoURL: currentUser.photoURL,
+    position: currentUser.position,
+    status: currentUser.status,
+    twitter: currentUser.twitter,
+    university: currentUser.university,
   });
+  const { file, setFile, percent, handleOnChange } = useUploadProfileIcon({ formData, setFormData });
 
   const {
     active,
@@ -65,8 +66,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     twitter,
     university,
   } = formData;
-
-  if (!currentUser) return null;
 
   const userRef = doc(db, "users", currentUser.uid) as DocumentReference<CurrentUser>;
 
@@ -94,11 +93,10 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     setOpened();
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null) {
-      setFormData({ ...formData, photoURL: URL.createObjectURL(e.target.files[0]) });
-      setFile(e.target.files[0]);
-    }
+  const uploadImage = () => {
+    if (percent === null) return;
+    if (percent !== 100) return <p className="px-2 font-bold text-blue-300 bg-slate-100 rounded-full">{percent}%</p>;
+    return file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />;
   };
 
   const handleLogout = () => {
@@ -142,7 +140,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               alt={currentUser.displayName ? currentUser.displayName : "ゲスト"}
             />
             <p className="font-bold">→</p>
-            {file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />}
+            {uploadImage()}
             <label htmlFor="settingImg" className="p-2 rounded-md border-2  border-dashed hover:cursor-pointer">
               <p className="text-gray-400 hover:text-gray-500">ファイルを選ぶ</p>
               <input

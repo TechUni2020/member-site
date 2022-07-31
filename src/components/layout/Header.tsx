@@ -10,9 +10,9 @@ import { LINKS } from "../utils/constants/link";
 import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
-  const { currentUser } = useCurrentUser();
+  const { currentUser, setCurrentUser } = useCurrentUser();
   const [settingOpened, setSettingOpened] = useState(false);
-  const [notificationOpend, setNotificationOpened] = useState(false);
+  const [notificationOpened, setNotificationOpened] = useState(false);
 
   if (!currentUser) return null;
 
@@ -20,7 +20,7 @@ export const NavItem: FC = memo(() => {
     setSettingOpened(!settingOpened);
   };
   const handleNotificationModal = () => {
-    setNotificationOpened(!notificationOpend);
+    setNotificationOpened(!notificationOpened);
   };
 
   return (
@@ -44,8 +44,13 @@ export const NavItem: FC = memo(() => {
           <Avatar src={null} radius="xl" size={40} className="hover:opacity-80" alt="ゲスト" />
         )}
       </button>
-      <SettingModal opened={settingOpened} setOpened={handleSettingModal} />
-      <NotificationModal bellOpened={notificationOpend} setBellOpened={handleNotificationModal} />
+      <SettingModal
+        currentUser={currentUser}
+        setCurrentUser={setCurrentUser}
+        opened={settingOpened}
+        setOpened={handleSettingModal}
+      />
+      <NotificationModal bellOpened={notificationOpened} setBellOpened={handleNotificationModal} />
     </div>
   );
 });

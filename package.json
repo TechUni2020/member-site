@@ -15,6 +15,8 @@
     "@mantine/form": "^5.0.0",
     "@mantine/modals": "^5.0.0",
     "@mantine/notifications": "^5.0.0",
+    "blueimp-load-image": "^5.16.0",
+    "@types/blueimp-load-image": "^5.16.0",
     "firebase": "^9.8.3",
     "next": "12.1.6",
     "react": "18.1.0",
