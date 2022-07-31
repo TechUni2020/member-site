@@ -55,6 +55,7 @@ const Login: NextPage = () => {
     // userコレクションの中に入っているものの構成にする
     const docRef = doc(db, "users", currentUser.uid);
     const data = {
+      active: false,
       bio: "",
       createdAt: Timestamp.now(),
       displayName: currentUser.displayName,
