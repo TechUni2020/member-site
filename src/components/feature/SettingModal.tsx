@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { Avatar, Group, Modal as MantineModal, Select, Tabs, TextInput } from "@mantine/core";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
 import { facultyData, gradeData } from "../utils/constants/university";
@@ -12,11 +13,10 @@ type Props = {
   setOpened: () => void;
 };
 
-type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
+export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
 export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
   const { currentUser, setCurrentUser } = useCurrentUser();
-  const [file, setFile] = useState<File | null>(null);
   const [formData, setFormData] = useState<FormData>({
     bio: currentUser?.bio,
     displayName: currentUser?.displayName,
@@ -32,6 +32,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     twitter: currentUser?.twitter,
     university: currentUser?.university,
   });
+  const { file, setFile, percent, handleOnChange } = useUploadProfileIcon({ formData, setFormData });
 
   const {
     bio,
@@ -75,11 +76,10 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     setOpened();
   };
 
-  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files !== null) {
-      setFormData({ ...formData, photoURL: URL.createObjectURL(e.target.files[0]) });
-      setFile(e.target.files[0]);
-    }
+  const uploadImage = () => {
+    if (percent === null) return;
+    if (percent !== 100) return <p className="px-2 font-bold text-blue-300 bg-slate-100 rounded-full">{percent}%</p>;
+    return file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />;
   };
 
   return (
@@ -111,7 +111,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
               alt={currentUser.displayName ? currentUser.displayName : "ゲスト"}
             />
             <p className="font-bold">→</p>
-            {file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />}
+            {uploadImage()}
             <label htmlFor="settingImg" className="p-2 rounded-md border-2  border-dashed hover:cursor-pointer">
               <p className="text-gray-400 hover:text-gray-500">ファイルを選ぶ</p>
               <input
