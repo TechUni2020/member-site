@@ -52,6 +52,7 @@ export const useAuth = (): ReturnType => {
       email: user.email,
       faculty: "",
       field: "",
+      fieldDetails: [],
       github: "",
       grade: "",
       instagram: "",
