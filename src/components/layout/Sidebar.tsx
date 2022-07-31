@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HomeIcon, UsersIcon, TextIcon, StudyMeetingIcon, MemberIcon } from "../ui-libraries/icon";
 
 import { LINKS } from "../utils/constants/link";
+import { UID } from "../utils/constants/tokens";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: LINKS.HOME },
@@ -12,6 +13,20 @@ const MENU = [
 ];
 
 export const SideBar = () => {
+  const router = useRouter();
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        localStorage.removeItem(UID);
+        successToast();
+        router.push(LINKS.SIGNUP);
+      })
+      .catch((error) => {
+        // エラーが発生しましたをslackに通知
+        console.error(error);
+      });
+  };
+  
   return (
     <div>
       <aside className="flex sticky top-10 flex-col justify-between  h-[calc(100vh-3rem)] border-r">
