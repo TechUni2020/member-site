@@ -30,7 +30,6 @@ export const useAuth = (): ReturnType => {
         // NOTE: doc.exists()でfirestoreにuserが存在するか確認して、存在しない場合は新規に作成する
         getDoc(docRef)
           .then((doc) => {
-            console.log(doc.exists());
             if (doc.exists()) {
               router.push(LINKS.HOME);
             } else {
