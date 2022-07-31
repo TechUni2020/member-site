@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-img-element */
 import { FC, memo } from "react";
 import Link from "next/link";
-import { GitHubIcon } from "src/components/ui-libraries/icon/GitHubIcon";
+import { GitHubIcon, TwitterIcon, InstagramIcon } from "src/components/ui-libraries/icon";
 import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
-import { InstagramIcon } from "src/components/ui-libraries/icon/InstagramIcon";
-import { TwitterIcon } from "src/components/ui-libraries/icon/TwitterIcon";
 
 const UniAndBio = () => {
   // const arrays = [

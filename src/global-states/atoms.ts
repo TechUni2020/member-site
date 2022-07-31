@@ -7,11 +7,13 @@ export type CurrentUser = {
   displayName: string | undefined;
   email: string | undefined;
   faculty: string | undefined | null;
+  field: string | undefined | null;
   github: string | undefined;
   grade: string | null | undefined;
-  id: number;
   instagram: string | undefined;
   photoURL: string;
+  position: number;
+  status: number;
   twitter: string | undefined;
   uid: string;
   university: string | undefined;

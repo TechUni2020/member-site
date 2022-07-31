@@ -1,7 +1,6 @@
 import { FC, ReactNode } from "react";
-import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
-import { GitHubIcon } from "src/components/ui-libraries/GithubIcon";
 import { useAuth } from "src/hooks/useAuth";
+import { GoogleIcon, GitHubIcon } from "src/components/ui-libraries/icon";
 import type { NextPage } from "next";
 
 type ButtonProps = {
@@ -24,6 +23,7 @@ const LoginButton: FC<ButtonProps> = ({ Icon, text, onClick }) => {
 
 const SignUp: NextPage = () => {
   const { signInWithGoogle, signInWithGitHub } = useAuth();
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
@@ -37,5 +37,4 @@ const SignUp: NextPage = () => {
 
 export default SignUp;
 
-// TODO: 不要なconsoleを消す
 // todo: LoginButtonを共通化してそっから持ってくる
