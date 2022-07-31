@@ -1,5 +1,4 @@
-import { atom } from "recoil";
-import { useRecoilState } from "recoil";
+import { atom, useRecoilState } from "recoil";
 
 export type CurrentUser = {
   active: boolean | undefined;

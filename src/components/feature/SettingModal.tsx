@@ -51,7 +51,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
   const { file, setFile, percent, handleOnChange } = useUploadProfileIcon({ formData, setFormData });
 
   const {
-    active,
     bio,
     displayName,
     email,
@@ -73,7 +72,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
   const handleSave = async () => {
     setCurrentUser({
       ...currentUser,
-      active: active,
       bio: bio,
       displayName: displayName,
       email: email,
