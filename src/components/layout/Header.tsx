@@ -4,24 +4,32 @@ import Link from "next/link";
 import Image from "next/image";
 import { Avatar } from "@mantine/core";
 import { useCurrentUser } from "src/global-states/atoms";
-import { BellIcon } from "../ui-libraries/icon/BellIcon";
+import { BellIcon, CalendarIcon } from "../ui-libraries/icon";
 import { SettingModal } from "../feature/SettingModal";
 import { LINKS } from "../utils/constants/link";
+import { NotificationModal } from "../feature/NotificationModal";
 
 export const NavItem: FC = memo(() => {
   const { currentUser, setCurrentUser } = useCurrentUser();
   const [settingOpened, setSettingOpened] = useState(false);
+  const [notificationOpened, setNotificationOpened] = useState(false);
 
   if (!currentUser) return null;
 
   const handleSettingModal = () => {
     setSettingOpened(!settingOpened);
   };
+  const handleNotificationModal = () => {
+    setNotificationOpened(!notificationOpened);
+  };
 
   return (
     <div className="flex gap-5 items-center">
-      <button className="hover:text-gray-700 bg-white">
+      <button onClick={handleNotificationModal} className="hover:text-gray-700 bg-white">
         <BellIcon />
+      </button>
+      <button className="hover:text-gray-700 bg-white">
+        <CalendarIcon />
       </button>
       <button onClick={handleSettingModal} className="rounded-full hover:opacity-90">
         {currentUser.photoURL ? (
@@ -42,6 +50,7 @@ export const NavItem: FC = memo(() => {
         opened={settingOpened}
         setOpened={handleSettingModal}
       />
+      <NotificationModal bellOpened={notificationOpened} setBellOpened={handleNotificationModal} />
     </div>
   );
 });
