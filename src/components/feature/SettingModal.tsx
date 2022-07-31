@@ -78,7 +78,7 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
 
   const uploadImage = () => {
     if (percent === null) return;
-    if (percent !== 100) return <div>{percent}%</div>;
+    if (percent !== 100) return <p className="px-2 font-bold text-blue-300 bg-slate-100 rounded-full">{percent}%</p>;
     return file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />;
   };
 
