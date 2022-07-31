@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { Avatar, Group, Modal as MantineModal, Select, Tabs, TextInput } from "@mantine/core";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
-import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { CurrentUser } from "src/global-states/atoms";
 import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { db } from "../utils/libs/firebase";
 import { AppButton } from "../ui-libraries/AppButton";
@@ -9,28 +9,29 @@ import { facultyData, gradeData } from "../utils/constants/university";
 import { GitHubIcon, InfoIcon, InstagramIcon, SettingIcon, TwitterIcon } from "../ui-libraries/icon";
 
 type Props = {
+  currentUser: CurrentUser;
+  setCurrentUser: (currentUser: CurrentUser) => void;
   opened: boolean;
   setOpened: () => void;
 };
 
 export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
-export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
-  const { currentUser, setCurrentUser } = useCurrentUser();
+export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, setOpened }) => {
   const [formData, setFormData] = useState<FormData>({
-    bio: currentUser?.bio,
-    displayName: currentUser?.displayName,
-    email: currentUser?.email,
-    faculty: currentUser?.faculty,
-    field: currentUser?.field,
-    github: currentUser?.github,
-    grade: currentUser?.grade,
-    instagram: currentUser?.instagram,
-    photoURL: currentUser?.photoURL as string,
-    position: currentUser?.position as number,
-    status: currentUser?.status as number,
-    twitter: currentUser?.twitter,
-    university: currentUser?.university,
+    bio: currentUser.bio,
+    displayName: currentUser.displayName,
+    email: currentUser.email,
+    faculty: currentUser.faculty,
+    field: currentUser.field,
+    github: currentUser.github,
+    grade: currentUser.grade,
+    instagram: currentUser.instagram,
+    photoURL: currentUser.photoURL,
+    position: currentUser.position,
+    status: currentUser.status,
+    twitter: currentUser.twitter,
+    university: currentUser.university,
   });
   const { file, setFile, percent, handleOnChange } = useUploadProfileIcon({ formData, setFormData });
 
@@ -49,8 +50,6 @@ export const SettingModal: FC<Props> = ({ opened, setOpened }) => {
     twitter,
     university,
   } = formData;
-
-  if (!currentUser) return null;
 
   const userRef = doc(db, "users", currentUser.uid) as DocumentReference<CurrentUser>;
 
