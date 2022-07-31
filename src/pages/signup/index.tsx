@@ -1,21 +1,7 @@
-import {
-  browserLocalPersistence,
-  getAuth,
-  GithubAuthProvider,
-  GoogleAuthProvider,
-  onAuthStateChanged,
-  setPersistence,
-  signInWithPopup,
-  signInWithRedirect,
-} from "firebase/auth";
-import { FC, ReactNode, useEffect } from "react";
-import { doc, Timestamp, DocumentData, setDoc } from "firebase/firestore";
-import { useRouter } from "next/router";
+import { FC, ReactNode } from "react";
 import { GoogleIcon } from "src/components/ui-libraries/GoogleIcon";
-import { auth, db } from "src/components/utils/libs/firebase";
 import { GitHubIcon } from "src/components/ui-libraries/GithubIcon";
-import { UID } from "src/components/utils/constants/tokens";
-import { LINKS } from "src/components/utils/constants/link";
+import { useAuth } from "src/hooks/useAuth";
 import type { NextPage } from "next";
 
 type ButtonProps = {
@@ -37,69 +23,7 @@ const LoginButton: FC<ButtonProps> = ({ Icon, text, onClick }) => {
 };
 
 const SignUp: NextPage = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        initAddData();
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const initAddData = async () => {
-    const { currentUser } = getAuth();
-
-    if (currentUser === null) return;
-
-    // userコレクションの中に入っているものの構成にする
-    const docRef = doc(db, "users", currentUser.uid);
-    const data = {
-      bio: "",
-      createdAt: Timestamp.now(),
-      github: "",
-      faculty: "",
-      grade: "",
-      instagram: "",
-      photoURL: currentUser.photoURL,
-      twitter: "",
-      displayName: currentUser.displayName,
-      email: currentUser.email,
-      uid: currentUser.uid,
-      university: "",
-    } as DocumentData;
-
-    setDoc(docRef, data, { merge: true })
-      .then(() => {
-        router.push(LINKS.HOME);
-      })
-      .catch((e) => {
-        console.log(`set failed: ${e}`);
-      });
-  };
-
-  const googleProvider = new GoogleAuthProvider();
-
-  const signInWithGoogle = async () => {
-    await setPersistence(auth, browserLocalPersistence).then(async () => {
-      signInWithPopup(auth, googleProvider).then(async (res) => {
-        localStorage.setItem(UID, res.user.uid);
-      });
-    });
-  };
-
-  const github = new GithubAuthProvider();
-  const signInWithGitHub = () => {
-    signInWithRedirect(auth, github)
-      .then((e) => {
-        console.log(e);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
-
+  const { signInWithGoogle, signInWithGitHub } = useAuth();
   return (
     <div className="flex justify-center items-center h-screen">
       <div>
