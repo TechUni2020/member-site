@@ -10,6 +10,7 @@ import { successToast } from "../ui-libraries/AppToast";
 import { auth } from "../utils/libs/firebase";
 import { MemberIcon } from "../ui-libraries/icon/Member";
 import { LINKS } from "../utils/constants/link";
+import { UID } from "../utils/constants/tokens";
 
 const MENU = [
   { icon: <HomeIcon />, label: "ホーム", href: LINKS.HOME },
@@ -24,6 +25,7 @@ export const SideBar = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
+        localStorage.removeItem(UID);
         successToast();
         router.push(LINKS.SIGNUP);
       })
