@@ -4,7 +4,8 @@ import { doc, DocumentReference, updateDoc } from "firebase/firestore";
 import { useRouter } from "next/router";
 import { signOut } from "firebase/auth";
 import { toast } from "react-hot-toast";
-import { CurrentUser, useCurrentUser } from "src/global-states/atoms";
+import { CurrentUser } from "src/global-states/atoms";
+import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { auth, db } from "../utils/libs/firebase";
 import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
 import {
@@ -16,7 +17,6 @@ import {
   TwitterIcon,
   DeleteIcon,
 } from "../ui-libraries/icon";
-import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
 import { AppButton } from "../ui-libraries/AppButton";
 import { LINKS } from "../utils/constants/link";
 
@@ -30,6 +30,7 @@ type Props = {
 export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
 export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, setOpened }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
     active: currentUser?.active,
     bio: currentUser.bio,
