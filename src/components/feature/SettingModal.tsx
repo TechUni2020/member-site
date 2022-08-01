@@ -1,12 +1,24 @@
 import { FC, useState } from "react";
-import { Avatar, Group, Modal as MantineModal, Select, Tabs, TextInput } from "@mantine/core";
+import { Avatar, Group, Modal as MantineModal, MultiSelect, Select, Tabs, TextInput, Text } from "@mantine/core";
 import { doc, DocumentReference, updateDoc } from "firebase/firestore";
+import { useRouter } from "next/router";
+import { signOut } from "firebase/auth";
+import { toast } from "react-hot-toast";
 import { CurrentUser } from "src/global-states/atoms";
 import { useUploadProfileIcon } from "src/hooks/useUploadProfileIcon";
-import { db } from "../utils/libs/firebase";
+import { auth, db } from "../utils/libs/firebase";
+import { facultyData, fieldDetailsData, gradeData, interestData } from "../utils/constants/university";
+import {
+  GitHubIcon,
+  InfoIcon,
+  InstagramIcon,
+  LogoutIcon,
+  SettingIcon,
+  TwitterIcon,
+  DeleteIcon,
+} from "../ui-libraries/icon";
 import { AppButton } from "../ui-libraries/AppButton";
-import { facultyData, gradeData } from "../utils/constants/university";
-import { GitHubIcon, InfoIcon, InstagramIcon, SettingIcon, TwitterIcon } from "../ui-libraries/icon";
+import { LINKS } from "../utils/constants/link";
 
 type Props = {
   currentUser: CurrentUser;
@@ -18,12 +30,15 @@ type Props = {
 export type FormData = Omit<CurrentUser, "uid" | "createdAt" | "id">;
 
 export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, setOpened }) => {
+  const router = useRouter();
   const [formData, setFormData] = useState<FormData>({
+    active: currentUser?.active,
     bio: currentUser.bio,
     displayName: currentUser.displayName,
     email: currentUser.email,
     faculty: currentUser.faculty,
     field: currentUser.field,
+    fieldDetails: currentUser.fieldDetails,
     github: currentUser.github,
     grade: currentUser.grade,
     instagram: currentUser.instagram,
@@ -41,6 +56,7 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
     email,
     faculty,
     field,
+    fieldDetails,
     github,
     grade,
     instagram,
@@ -61,6 +77,7 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
       email: email,
       faculty: faculty,
       field: field,
+      fieldDetails: fieldDetails,
       github: github,
       grade: grade,
       instagram: instagram,
@@ -79,6 +96,18 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
     if (percent === null) return;
     if (percent !== 100) return <p className="px-2 font-bold text-blue-300 bg-slate-100 rounded-full">{percent}%</p>;
     return file && <Avatar src={window.URL.createObjectURL(file) ?? currentUser.photoURL} radius="xl" size={40} />;
+  };
+
+  const handleLogout = () => {
+    signOut(auth)
+      .then(() => {
+        toast.success("成功しました");
+        router.push(LINKS.LOGIN);
+      })
+      .catch((error) => {
+        // エラーが発生しましたをslackに通知
+        console.error(error);
+      });
   };
 
   return (
@@ -125,7 +154,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
           <TextInput
             required
             label="名前"
-            variant="filled"
             placeholder="名前"
             value={displayName}
             onChange={(e) => setFormData({ ...formData, displayName: e.target.value })}
@@ -133,7 +161,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
           <TextInput
             required
             label="メールアドレス"
-            variant="filled"
             placeholder="techuni@code.com"
             value={email ? email : ""}
             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
@@ -142,14 +169,12 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
           <Group className="flex justify-between">
             <TextInput
               label="大学"
-              variant="filled"
               placeholder="tech大学"
               className="mt-4"
               value={university}
               onChange={(e) => setFormData({ ...formData, university: e.target.value })}
             />
             <Select
-              variant="filled"
               label="学年"
               placeholder="code学年"
               data={gradeData}
@@ -159,7 +184,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
               onChange={(e) => setFormData({ ...formData, grade: e })}
             />
             <Select
-              variant="filled"
               label="学部"
               placeholder="code学部"
               data={facultyData}
@@ -173,7 +197,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
           <Group className="flex justify-between">
             <TextInput
               required
-              variant="filled"
               label="github"
               icon={<GitHubIcon />}
               placeholder="techuni"
@@ -183,7 +206,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
             />
             <TextInput
               required
-              variant="filled"
               label="twitter"
               icon={<TwitterIcon />}
               placeholder="techuni"
@@ -193,7 +215,6 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
             />
             <TextInput
               required
-              variant="filled"
               label="instagram"
               icon={<InstagramIcon />}
               placeholder="techuni"
@@ -202,8 +223,30 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
               className="mt-4"
             />
           </Group>
+
+          <Select
+            required
+            label="最も興味のある分野"
+            placeholder="code学年"
+            data={interestData}
+            className="mt-4"
+            value={field}
+            dropdownComponent="div"
+            onChange={(e) => setFormData({ ...formData, field: e })}
+          />
+          <MultiSelect
+            label="よく使用するフレームワーク・ライブラリー"
+            placeholder="Next.js"
+            searchable
+            nothingFound="見つかりませんでした。"
+            data={fieldDetailsData}
+            className="mt-4"
+            value={fieldDetails}
+            dropdownComponent="div"
+            maxSelectedValues={3}
+            onChange={(e) => setFormData({ ...formData, fieldDetails: [...e] })}
+          />
           <TextInput
-            variant="filled"
             label="一言"
             placeholder="はじめまして！"
             value={bio}
@@ -225,13 +268,33 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="その他">
-          <h1>メール通知</h1>
-          <h1>テーマカラー</h1>
-          <h1>個人アカウントの管理</h1>
+          <Text weight="bold">メール通知</Text>
+          <Text weight="bold">
+            <Text weight="bold">テーマカラー</Text>
+          </Text>
+          <div>
+            <Text weight="bold">個人アカウントの管理</Text>
+            <AppButton
+              type="button"
+              color="red"
+              size="xs"
+              radius="md"
+              variant="subtle"
+              onClick={handleLogout}
+              className="my-2 mx-auto mb-5"
+            >
+              <LogoutIcon />
+              ログアウト
+            </AppButton>
+            <AppButton type="button" color="red" size="xs" radius="md" variant="subtle" className="mx-auto mb-5">
+              <DeleteIcon />
+              アカウントの削除
+            </AppButton>
+          </div>
         </Tabs.Panel>
       </Tabs>
     </MantineModal>
   );
 };
 
-// todo: AppInputを使う
+// todo: 最も興味のある分野を選んだら、fieldDetailsが連動するようにする

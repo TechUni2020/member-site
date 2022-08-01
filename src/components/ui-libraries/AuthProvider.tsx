@@ -19,7 +19,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
   useEffect(() => {
     const uid: string | null = localStorage.getItem(UID);
     if (!uid) {
-      router.push(LINKS.SIGNUP);
+      router.push(LINKS.LOGIN);
       return;
     }
     const docRef = doc(db, "users", uid);
@@ -40,7 +40,7 @@ export const AuthProvider: FC<Props> = ({ children }) => {
 
   if (isLoading) return <AppLoading />;
   if (!currentUser) {
-    router.push(LINKS.SIGNUP);
+    router.push(LINKS.LOGIN);
     return null;
   }
 

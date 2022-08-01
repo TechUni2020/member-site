@@ -28,7 +28,10 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
   }, [opened]);
 
   if (!password) return <AuthModal opened={opened} setOpened={setOpened} />;
-  if (router.pathname === LINKS.SIGNUP) return <Component {...pageProps} />;
+  if (router.pathname === LINKS.LOGIN) return <Component {...pageProps} />;
+  // if (currentUser?.status === 0 && router.pathname !== LINKS.SIGNUP && router.pathname !== LINKS.LOGIN) {
+  //   return <h1>承認待ちです。</h1>;
+  // }
 
   return (
     <AuthProvider>
@@ -38,3 +41,5 @@ const AppPage: FC<AppProps> = ({ Component, pageProps, router }) => {
 };
 
 export default App;
+
+// 承認待ちのコンポーネントを条件分岐で表示

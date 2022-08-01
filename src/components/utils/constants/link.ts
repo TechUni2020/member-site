@@ -5,4 +5,5 @@ export const LINKS = {
   STUDYMEETING: "/study-meeting",
   ONEONONE: "/1on1",
   SIGNUP: "/signup",
+  LOGIN: "/login",
 };

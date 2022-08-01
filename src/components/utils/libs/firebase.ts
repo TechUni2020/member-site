@@ -1,7 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
-import "firebase/auth";
 import { getStorage } from "firebase/storage";
 import { apiKey, appId, authDomain, messagingSenderId, mesurementId, projectId, storageKey } from "../constants/env";
 
