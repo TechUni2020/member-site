@@ -38,7 +38,7 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
     email: currentUser.email,
     faculty: currentUser.faculty,
     field: currentUser.field,
-    fieldDetails: currentUser?.fieldDetails,
+    fieldDetails: currentUser.fieldDetails,
     github: currentUser.github,
     grade: currentUser.grade,
     instagram: currentUser.instagram,
@@ -244,7 +244,7 @@ export const SettingModal: FC<Props> = ({ currentUser, setCurrentUser, opened, s
             value={fieldDetails}
             dropdownComponent="div"
             maxSelectedValues={3}
-            onChange={(e) => setFormData({ ...formData, fieldDetails: e })}
+            onChange={(e) => setFormData({ ...formData, fieldDetails: [...e] })}
           />
           <TextInput
             label="一言"
